@@ -4,6 +4,7 @@ import { Button } from "@pankod/refine-mui"
 import { PostCardProps } from 'interfaces/property'
 import { useGetIdentity } from "@pankod/refine-core";
 import { useState } from 'react';
+import { GoogleButton } from 'pages/login';
 
 const PostCard = ({ id, title, tech, description, photo, photo2, photo3, photo4, postType }:PostCardProps) => {
   const [hover, setHover] = useState(false)
@@ -15,7 +16,7 @@ const PostCard = ({ id, title, tech, description, photo, photo2, photo3, photo4,
       component={Link}
       to={`/posts/show/${id}`}
       sx={{
-        maxWidth: '400px',
+        maxWidth: {lg: '400px', md: '300px', xs: '240px'},
         height: '350px',
         borderRadius: '25px',
         backgroundColor: '#F0F0F0',
@@ -51,10 +52,11 @@ const PostCard = ({ id, title, tech, description, photo, photo2, photo3, photo4,
         hover === true ? (
           <Box sx={{
             position: 'relative',
-              bottom: '25%',
-              left: '50%',
-              transform: 'translate(-50%, 50%)',
+            bottom: '25%',
+            left: '50%',
+            transform: 'translate(-50%, 50%)',
           }}>
+          {user? (
           <Button
             sx={{ 
               zIndex: '10',
@@ -73,10 +75,20 @@ const PostCard = ({ id, title, tech, description, photo, photo2, photo3, photo4,
               },
             }}
         >
-          {
-            user ? 'Explore More' : 'Login To Explore'
-          }
+          Explore More
         </Button>
+        ) : (
+          <Box 
+          sx={{
+            width: '48%',
+            position: 'absolute',
+            // bottom: '25%',
+            // left: '50%',
+            transform: 'translate(50%, -50%)',
+            }}>
+          <GoogleButton />
+          </Box>
+        )}
         </Box>
         ) : (
           null

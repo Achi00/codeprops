@@ -9,11 +9,18 @@ import {
 } from "@pankod/refine-mui";
 
 import { ColorModeContext } from "contexts";
+import { useNavigate } from "react-router-dom";
 
 export const Header: React.FC = () => {
   const { mode, setMode } = useContext(ColorModeContext);
-
+  const navigate = useNavigate()
   const { data: user } = useGetIdentity();
+  if (user === undefined) {
+    <>Loading...</>
+  } else if (!user) {
+    // user doesn't exist, so redirect to the home page
+    navigate('/')
+  }
   const shouldRenderHeader = true; // since we are using the dark/light toggle; we don't need to check if user is logged in or not.
 
   return shouldRenderHeader ? (

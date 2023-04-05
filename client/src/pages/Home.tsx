@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { useList } from '@pankod/refine-core'
-import { Profile, PostCard, CustomButton } from 'components'
+import { useEffect, useState } from 'react'
+import { useGetIdentity, useList } from '@pankod/refine-core'
+import { PostCard, CustomButton } from 'components'
 import { Typography, Box, Stack, Card, CardMedia, CardContent } from '@pankod/refine-mui'
 import axios from 'axios'
 import '../index.css'
@@ -10,6 +10,7 @@ import DataObjectIcon from '@mui/icons-material/DataObject';
 import { useNavigate } from "@pankod/refine-react-router-v6"
 import Three from 'components/3d/Three' 
 import { motion } from "framer-motion";
+import { GoogleButton } from './login'
 
 
 const Home = () => {
@@ -24,6 +25,11 @@ const Home = () => {
       })
   }, [])
   const navigate = useNavigate()
+  const { data: user } = useGetIdentity()
+
+//  if(user) {
+//   navigate("/posts")
+//  }
 
   const { data, isLoading, isError } = useList({
     resource: 'posts',
@@ -40,12 +46,7 @@ const Home = () => {
   if(isError) return <Typography>Error</Typography>
   
   return (
-    <Box sx={{overflowX: 'hidden', height: '290vh'}}>
-      {/* <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-      <Typography textAlign="center" fontSize={70} fontWeight={900} display="flex" justifyContent="center" color="#000">
-      Design and ship your<br/> dream site. Zero code,<br/> maximum speed.
-        </Typography>
-      </Box> */}
+    <Box sx={{overflowX: 'hidden', height: '250vh'}}>
       <motion.div
         
       >
@@ -73,7 +74,7 @@ const Home = () => {
           damping: 150,
           delay: 0.7
         }}
-         fontSize={25} fontWeight={400} display="flex" justifyContent="center">
+         fontSize={{lg: 25, md: 20, xs: 12}} fontWeight={400} display="flex" justifyContent="center">
             Find Inspiration & Learn Latest Web Technologies
         </Typography>
         <Typography
@@ -109,15 +110,17 @@ const Home = () => {
               src={img.photo} key={id} alt="Design" />
             ))
           }
+
           <CustomButton 
               type="submit"
-              title={'Explore More'}
+              title={user ? 'Explore More' : 'Sign In with Google To Explore'}
               backgroundColor="#475be8"
               color="#fcfcfc"
               width="20%"
               height="190px"
-              handleClick={() => navigate('/posts')}
+              handleClick={user ? () => navigate('/posts') : () => navigate('/login')}
             />
+
         </Stack>
         <Stack 
         component={motion.div}
@@ -141,8 +144,8 @@ const Home = () => {
         </Stack>
         <Box 
         component={motion.div}
-        initial={{ y: 1500 }}
-        animate={{ y: 0}}
+        initial={{ x: 2500 }}
+        animate={{ x: 0}}
         transition={{
           type: "spring",
           stiffness: 260,
@@ -270,33 +273,33 @@ const Home = () => {
         
         <Box sx={{mt: '80px'}} textAlign="center">
           <Stack direction="row" sx={{ display: "flex", justifyContent: "center", alignItems: 'center', gap: '40px'}}>
-            <CodeIcon className='float' sx={{padding: '0.5rem', fontSize: '75px',color: '#23C4BA', background: 'linear-gradient(to right, #CB00FF, #7101FE)', borderRadius: '50%'}} />
-            <SubtitlesIcon  className='float2' sx={{padding: '0.5rem', fontSize: '75px', color: '#23C4BA', background: 'linear-gradient(to right, #CB00FF, #7101FE)', borderRadius: '50%'}} />
-            <DataObjectIcon className='float1' sx={{padding: '0.5rem', fontSize: '75px',color: '#23C4BA', background: 'linear-gradient(to right, #CB00FF, #7101FE)', borderRadius: '50%'}} />
+            <CodeIcon className='float' sx={{padding: '0.5rem', fontSize: '75px',color: '#23C4BA', background: 'linear-gradient(to right, #CB00FF, #7101FE)', borderRadius: '50%', border:"none"}} />
+            <SubtitlesIcon  className='float2' sx={{padding: '0.5rem', fontSize: '75px', color: '#23C4BA', background: 'linear-gradient(to right, #CB00FF, #7101FE)', borderRadius: '50%', border:"none"}} />
+            <DataObjectIcon className='float1' sx={{padding: '0.5rem', fontSize: '75px',color: '#23C4BA', background: 'linear-gradient(to right, #CB00FF, #7101FE)', borderRadius: '50%', border:"none"}} />
           </Stack>
         </Box>
         <Box 
         flex={1} borderRadius="20px" padding="20px" display="flex" flexDirection="column" minWidth="100%" mt="25px" ml="25px"
         >
           <Typography fontSize="18px" fontWeight={600} color="#11142d">Latest Posts</Typography>
-          <Box mt={2.5} sx={{ display: 'flex', flexWrap: 'wrap', gap: 4}}>
-        {latestPosts.map(post => (
-          <PostCard 
-            key={post._id}
-            id={post._id}
-            description={post.description}
-            postType={post.postType}
-            tech={post.tech}
-            title={post.title}
-            photo={post.photo}
-            photo2={post.photo2}
-            photo3={post.photo3} 
-            photo4={post.photo4} 
-            header={post.header} 
-            header2={post.header2}
-            />
-        ))}
-      </Box>
+          <Box mt={2.5} p={3} sx={{ display: 'flex', flexWrap: 'wrap', gap: 2}}>
+            {latestPosts.map(post => (
+              <PostCard 
+                key={post._id}
+                id={post._id}
+                description={post.description}
+                postType={post.postType}
+                tech={post.tech}
+                title={post.title}
+                photo={post.photo}
+                photo2={post.photo2}
+                photo3={post.photo3} 
+                photo4={post.photo4} 
+                header={post.header} 
+                header2={post.header2}
+                />
+            ))}
+          </Box>
         </Box>
         </motion.div>
     </Box>

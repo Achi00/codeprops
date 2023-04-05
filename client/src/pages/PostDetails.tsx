@@ -1,4 +1,4 @@
-import { Typography, Box, Stack } from "@pankod/refine-mui";
+import { Typography, Box, Stack, Link } from "@pankod/refine-mui";
 import { useDelete, useGetIdentity, useShow } from "@pankod/refine-core";
 import { useParams, useNavigate } from "@pankod/refine-react-router-v6";
 import { Button } from "@pankod/refine-mui"
@@ -26,6 +26,9 @@ const PostDetails = () => {
   const postDetails = data?.data ?? {}
   const { title, tech, description, header, header2, photo, photo2, photo3, photo4, postType, github, preview } = postDetails
 
+  // if (!user) {
+  //   navigate('/')
+  // }
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -56,17 +59,17 @@ const PostDetails = () => {
     };
   
   return (
-    <Box sx={{textTransform: 'capitalize'}} my={10} mx={10}>
-      <Stack direction="row" display="flex" justifyContent="space-between">
-      <Typography fontSize={60} fontWeight={900} color="#000000">{title}</Typography>
-      <Typography fontSize={25} fontWeight={200} width="500px" color="#000000">
+    <Box sx={{textTransform: 'capitalize'}} my={{lg: 10, md: 8, xs: 0}} mx={{lg: 10, md: 8, xs: 2}}>
+      <Stack direction={{lg: "row", md: "row", xs: 'column'}} display="flex" justifyContent="space-between">
+      <Typography fontSize={{lg: 60, md: 45, xs: 25}} fontWeight={900} color="#000000">{title}</Typography>
+      <Typography fontSize={{lg: 25, md: 20, xs: 15}} fontWeight={200} width={{lg: "500px", md: "350px", xs: "200px"}} color="#000000">
         {description}
       </Typography>
       </Stack>
-      <Typography fontSize={25} fontWeight={700} width="500px" color="#9D9D9D">
+      <Typography fontSize={25} fontWeight={700} color="#9D9D9D">
         {postType}
       </Typography>
-      <Box width="100%" >
+      <Box>
       <Stack mt="25px" direction="column"  gap={2}>
          <CustomButton
              title={!isCurrentUser ? "Save Post" : "Edit"}
@@ -104,8 +107,10 @@ const PostDetails = () => {
          />
       </Stack>
       </Box>
-      <Stack padding={5} direction="row" display="flex" justifyContent="space-between">
+      <Stack padding={5} direction={{lg: "row", md: "row", xs: 'column'}} gap="20px" display="flex" justifyContent="space-between">
         <Button
+        href={preview}
+        target="_blank"
           sx={{
             background: 'linear-gradient(to right top, #0E7BFF, #8511FF)',
             width: '150px',
@@ -121,6 +126,8 @@ const PostDetails = () => {
           }}
         >Preview</Button>
         <Button
+          href={github}
+          target="_blank"
           sx={{
             background: 'linear-gradient(to right top, #0E7BFF, #8511FF)',
             width: '150px',
@@ -139,26 +146,26 @@ const PostDetails = () => {
       </Stack>
         <Stack width="100%" direction="column" display="flex">
           <Box display="flex" alignItems="center" justifyContent="center">
-          <img width="70%" src={photo} style={{ borderRadius: '20px'}} alt="Image" />
+          <img width={500} src={photo} style={{ borderRadius: '20px'}} alt="Image" />
           </Box>
-          <Stack py={5} direction="column" width="100%" display="flex" justifyContent="center" alignItems="flex-end" >
-            <Typography fontSize={25} fontWeight={200} width="500px" color="#000000">
+          <Stack py={2} direction="column" width="100%" display="flex" justifyContent="center" alignItems="flex-end" >
+            <Typography fontSize={25} fontWeight={200} width={{lg: "500px", md: "350px", xs: '200px'}} color="#000000">
               <strong>Used Technologies</strong><br />
               {tech}
             </Typography>
           </Stack>
           <Box>
-            <Typography width="750px" p={5} fontSize={20} fontWeight={400} color="#000000">{header}</Typography>
+            <Typography width={{lg: "750px", md: "550px", xs: '300px'}} p={5} fontSize={20} fontWeight={400} color="#000000">{header}</Typography>
           </Box>
-          <img width={750} src={photo2} style={{ borderRadius: '20px'}} alt="Image" />
+          <img width={550} src={photo2} style={{ borderRadius: '20px'}} alt="Image" />
           <Box p={5}>
-            <Typography p={5} width="750px" fontSize={20} fontWeight={400} color="#000000">{header2}</Typography>
+            <Typography p={5} width={{lg: "750px", md: "550px", xs: '300px'}} fontSize={20} fontWeight={400} color="#000000">{header2}</Typography>
           </Box>
-          <img width={750} src={photo3} style={{ borderRadius: '20px'}} alt="Image" />
+          <img width={550} src={photo3} style={{ borderRadius: '20px'}} alt="Image" />
           <Box p={5}>
-            <Typography p={5} width="750px" fontSize={20} fontWeight={400} color="#000000">{header2}</Typography>
+            <Typography p={5} width={{lg: "750px", md: "550px", xs: '300px'}} fontSize={20} fontWeight={400} color="#000000">{header2}</Typography>
           </Box>
-          <img width={750} src={photo4} style={{ borderRadius: '20px'}} alt="Image" />
+          <img width={550} src={photo4} style={{ borderRadius: '20px'}} alt="Image" />
         </Stack>
       </Box>
   )

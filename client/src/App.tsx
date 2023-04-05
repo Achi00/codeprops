@@ -71,6 +71,7 @@ function App() {
       return Promise.resolve();
     },
     logout: () => {
+      
       const token = localStorage.getItem("token");
 
       if (token && typeof window !== "undefined") {
@@ -81,7 +82,7 @@ function App() {
           return Promise.resolve();
         });
       }
-
+      window.location.reload()
       return Promise.resolve();
     },
     checkError: () => Promise.resolve(),
@@ -122,24 +123,24 @@ function App() {
               edit: EditPost,
               options: { label: 'Posts'},
             },
-            {
-              name: "react",
-              list: MuiInferencer,
-              options: { label: 'React JS'},
-              icon: <JavascriptOutlinedIcon />
-            },
-            {
-              name: "crud",
-              list: MuiInferencer,
-              options: { label: 'CRUD'},
-              icon: <UpdateIcon />
-            },
-            {
-              name: "css",
-              list: MuiInferencer,
-              options: { label: 'CSS'},
-              icon: <CssOutlinedIcon />
-            },
+            // {
+            //   name: "react",
+            //   list: MuiInferencer,
+            //   options: { label: 'React JS'},
+            //   icon: <JavascriptOutlinedIcon />
+            // },
+            // {
+            //   name: "crud",
+            //   list: MuiInferencer,
+            //   options: { label: 'CRUD'},
+            //   icon: <UpdateIcon />
+            // },
+            // {
+            //   name: "css",
+            //   list: MuiInferencer,
+            //   options: { label: 'CSS'},
+            //   icon: <CssOutlinedIcon />
+            // },
           ]}
           Title={Title}
           Sider={Sider}

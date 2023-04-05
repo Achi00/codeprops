@@ -1,7 +1,9 @@
 import { Button } from "@pankod/refine-mui"
 import { CustomButtonProps } from "interfaces/common"
+import { useGetIdentity } from '@pankod/refine-core'
 
 const CustomButton = ({ type, height, title, backgroundColor, color, fullWidth, width, icon, handleClick, disabled }:CustomButtonProps) => {
+  const { data: user } = useGetIdentity();
   return (
     <Button 
     disabled={disabled}
@@ -10,8 +12,7 @@ const CustomButton = ({ type, height, title, backgroundColor, color, fullWidth, 
       flex: fullWidth ? 1 : 'unset', 
       padding: '15px 15px',
       mt: '20px',
-      width: fullWidth ? '200px' : width,
-      // width: width,
+      width: fullWidth ? '200px' : {lg: width, md: '10px', xs: '10px'},
       borderRadius: '15px',
       border: '1px solid black',
       minWidth: 130,

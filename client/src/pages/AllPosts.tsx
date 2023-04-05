@@ -15,11 +15,10 @@ const AllPosts = () => {
     sorter, setSorter, 
     filters,setFilters 
   } = useTable()
-    
-    const allPosts = data?.data ?? []
 
-    const { data: user } = useGetIdentity()
-    
+  const { data: user } = useGetIdentity()
+  
+  const allPosts = data?.data ?? []
 
     const currentFilterValues = useMemo(() => {
       const logicalFilters = filters.flatMap(item => (
@@ -38,7 +37,7 @@ const AllPosts = () => {
     <Box>
       <Box mt="20px" sx={{ displey: 'flex', flexWrap: 'wrap', gap: 3}}>
         <Stack direction="column" width="100%">
-          <Typography fontSize={25} fontWeight={700} color="#11142d">
+          <Typography p={3} fontSize={25} fontWeight={700} color="#11142d">
             {!allPosts.length ? 'There are no posts to show' : 'All Posts'}
           </Typography>
           <Box mb={2} mt={3} display="flex" width="84%" justifyContent="space-between" flexWrap="wrap">
