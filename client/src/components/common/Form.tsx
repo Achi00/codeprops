@@ -6,12 +6,16 @@ import CustomButton from "./CustomButton";
 
 const Form = ({type, register, handleSubmit, handleImageChange, handleImageChange2, handleImageChange3, handleImageChange4, formLoading, onFinishHandler, postImage, postImage2, postImage3, postImage4 }: FormProps) => {
   return (
-    <Box>
+    <Box
+    component="div"
+    >
     <Stack sx={{padding: "24px"}}>
       <Typography fontSize={25} fontWeight={700} color="#11142d">
         {type} a Post
       </Typography>
-      <Box mt={2.5} borderRadius="15px" padding="20px" bgcolor="#fcfcfc">
+      <Box 
+      component="div"
+      mt={2.5} borderRadius="15px" padding="20px" bgcolor="#fcfcfc">
       <form 
       style={{ 
         marginTop: '20px',padding: '24px', width: '100%', display: 'flex', flexDirection: 'column', gap: '20px'

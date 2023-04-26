@@ -1,9 +1,7 @@
 /* eslint-disable */
-import * as THREE from 'three'
-import * as React from 'react'
 import { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { EffectComposer, DepthOfField, Bloom, Noise, Vignette } from '@react-three/postprocessing'
+import { EffectComposer, DepthOfField, Bloom } from '@react-three/postprocessing'
 
 function Shape(props) {
   // This reference will give us direct access to the THREE.Mesh object

@@ -118,7 +118,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
                       "&:hover": {
                         backgroundColor: "transparent",
                       },
-                      backgroundColor: "#1C1437",
+                      backgroundColor: "#0D1318",
                     },
                   }}
                 >
@@ -179,9 +179,9 @@ export const Sider: typeof DefaultSider = ({ render }) => {
                 py: isNested ? 1.25 : 1,
                 "&.Mui-selected": {
                   "&:hover": {
-                    backgroundColor: isSelected ? "#2230F5" : "transparent",
+                    backgroundColor: isSelected ? "#343a40" : "transparent",
                   },
-                  backgroundColor: isSelected ? "#475be8" : "transparent",
+                  backgroundColor: isSelected ? "#0D1318" : "transparent",
                 },
                 justifyContent: "center",
                 margin: '10px auto',
@@ -333,6 +333,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
   return (
     <>
       <Box
+        component="div"
         sx={{
           width: { xs: drawerWidth() },
           display: {
@@ -367,6 +368,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
           }}
         >
           <Box
+          component="div"
             sx={{
               height: 64,
               display: "flex",
@@ -393,6 +395,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
           open
         >
           <Box
+          component="div"
             sx={{
               height: 64,
               display: "flex",
@@ -403,6 +406,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
             <RenderToTitle collapsed={collapsed} />
           </Box>
           <Box
+          component="div"
             sx={{
               flexGrow: 1,
               overflowX: "hidden",
@@ -413,13 +417,13 @@ export const Sider: typeof DefaultSider = ({ render }) => {
           </Box>
           <Button
             sx={{
-              background: "#475BE8",
+              background: "#0D1318",
               color: "primary.contrastText",
               textAlign: "center",
               borderRadius: "0px",
               borderTop: "1px solid #ffffff1a",
               '&:hover': {
-                background: "#2230F5"
+                background: "#343a40"
               }
             }}
             fullWidth
@@ -430,6 +434,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
           </Button>
         </Drawer>
         <Box
+        component="div"
           sx={{
             display: { xs: "block", md: "none" },
             position: "fixed",

@@ -116,7 +116,7 @@ a {
 }
 
 .gradient {
-  background: -webkit-linear-gradient(#adb5bd, #e9ecef);
+  background: -webkit-linear-gradient(#444444, #e9ecef);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -126,8 +126,19 @@ a {
   border-radius: 50%;
   width: 200px;
   height: 200px;
-  background-color: #A14BF8;
+  background-color: #0D1318;
 }
+
+.img-circle {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  font-size: 40px;
+  top: 0;
+  position: absolute;
+  right: 15vmin;
+}
+
 
 @keyframes gradient {
 	0% {
@@ -145,17 +156,14 @@ a {
 .float {
   -webkit-animation: float 6s ease-in-out infinite;
   animation: float 6s ease-in-out infinite;
-  border: 1px solid black;
 }
 .float1 {
   -webkit-animation: float 4s ease-in-out infinite;
   animation: float 4s ease-in-out infinite;
-  border: 1px solid black;
 }
 .float2 {
   -webkit-animation: float 8s ease-in-out infinite;
   animation: float 8s ease-in-out infinite;
-  border: 1px solid black;
 }
  
 @-webkit-keyframes float {
@@ -183,28 +191,15 @@ a {
 }
 
 .nav {
-  color: red;
   padding-left: 2rem;
   padding-right: 2rem;
 }
 
-/* google btn */
+/* iframe */
 
-/* #google-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #dd4b39;
-  color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 12px 24px;
-  border-radius: 35px;
-  width: 200px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+.htmlScreen iframe {
+  width: 1180px;
+  height: 760px;
+  border: none;
+  border-radius: 25px;
 }
-
-#google-button:hover {
-  background-color: #c74331;
-} */

@@ -68,10 +68,16 @@ const EditPost = () => {
 
     const onFinishHandler = async (data: FieldValues) => {
         if (!postImage.name) return alert("Please upload a post image");
+        if (!postImage2.name) return alert("Please upload a post image");
+        if (!postImage3.name) return alert("Please upload a post image");
+        if (!postImage4.name) return alert("Please upload a post image");
 
         await onFinish({
             ...data,
             photo: postImage.url,
+            photo2: postImage2.url,
+            photo3: postImage3.url,
+            photo4: postImage4.url,
             email: user.email,
         });
     };

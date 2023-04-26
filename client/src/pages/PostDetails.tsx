@@ -59,7 +59,7 @@ const PostDetails = () => {
     };
   
   return (
-    <Box sx={{textTransform: 'capitalize'}} my={{lg: 10, md: 8, xs: 0}} mx={{lg: 10, md: 8, xs: 2}}>
+    <Box component="div" sx={{textTransform: 'capitalize'}} my={{lg: 10, md: 8, xs: 0}} mx={{lg: 10, md: 8, xs: 2}}>
       <Stack direction={{lg: "row", md: "row", xs: 'column'}} display="flex" justifyContent="space-between">
       <Typography fontSize={{lg: 60, md: 45, xs: 25}} fontWeight={900} color="#000000">{title}</Typography>
       <Typography fontSize={{lg: 25, md: 20, xs: 15}} fontWeight={200} width={{lg: "500px", md: "350px", xs: "200px"}} color="#000000">
@@ -69,13 +69,13 @@ const PostDetails = () => {
       <Typography fontSize={25} fontWeight={700} color="#9D9D9D">
         {postType}
       </Typography>
-      <Box>
+      <Box component="div">
       <Stack mt="25px" direction="column"  gap={2}>
          <CustomButton
              title={!isCurrentUser ? "Save Post" : "Edit"}
              width="100px"
              height="30px"
-             backgroundColor="#475BE8"
+             backgroundColor="#0D1318"
              color="#FCFCFC"
              fullWidth
              disabled={isCurrentUser ? false : true}
@@ -112,24 +112,7 @@ const PostDetails = () => {
         href={preview}
         target="_blank"
           sx={{
-            background: 'linear-gradient(to right top, #0E7BFF, #8511FF)',
-            width: '150px',
-            height: '50px',
-            color: '#fff',
-            fontWeight: '700',
-            fontSize: '20px',
-            textTransform: 'capitalize',
-            '&:hover': {
-              background: 'linear-gradient(to right top, #8511FF, #0E7BFF)',
-              boxShadow: '5px 10px 25px 8px rgba(176, 176, 176, 0.8)',
-            }
-          }}
-        >Preview</Button>
-        <Button
-          href={github}
-          target="_blank"
-          sx={{
-            background: 'linear-gradient(to right top, #0E7BFF, #8511FF)',
+            backgroundColor: '#0D1318',
             width: '150px',
             height: '50px',
             color: '#fff',
@@ -138,14 +121,32 @@ const PostDetails = () => {
             textTransform: 'capitalize',
             transition: '0.2s ease-in-out',
             '&:hover': {
-              background: 'linear-gradient(to right top, #8511FF, #0E7BFF)',
+              backgroundColor: '#0D1318',
+              boxShadow: '5px 10px 25px 8px rgba(176, 176, 176, 0.8)',
+            }
+          }}
+        >Preview</Button>
+        <Button
+          href={github}
+          target="_blank"
+          sx={{
+            backgroundColor: '#0D1318',
+            width: '150px',
+            height: '50px',
+            color: '#fff',
+            fontWeight: '700',
+            fontSize: '20px',
+            textTransform: 'capitalize',
+            transition: '0.2s ease-in-out',
+            '&:hover': {
+              backgroundColor: '#0D1318',
               boxShadow: '5px 10px 25px 8px rgba(176, 176, 176, 0.8)',
             }
           }}
         >GitHub<GitHubIcon sx={{ml: '5px'}}/></Button>
       </Stack>
         <Stack width="100%" direction="column" display="flex">
-          <Box display="flex" alignItems="center" justifyContent="center">
+          <Box component="div" display="flex" alignItems="center" justifyContent="center">
           <img width={500} src={photo} style={{ borderRadius: '20px'}} alt="Image" />
           </Box>
           <Stack py={2} direction="column" width="100%" display="flex" justifyContent="center" alignItems="flex-end" >
@@ -154,15 +155,15 @@ const PostDetails = () => {
               {tech}
             </Typography>
           </Stack>
-          <Box>
+          <Box component="div">
             <Typography width={{lg: "750px", md: "550px", xs: '300px'}} p={5} fontSize={20} fontWeight={400} color="#000000">{header}</Typography>
           </Box>
           <img width={550} src={photo2} style={{ borderRadius: '20px'}} alt="Image" />
-          <Box p={5}>
+          <Box component="div" p={5}>
             <Typography p={5} width={{lg: "750px", md: "550px", xs: '300px'}} fontSize={20} fontWeight={400} color="#000000">{header2}</Typography>
           </Box>
           <img width={550} src={photo3} style={{ borderRadius: '20px'}} alt="Image" />
-          <Box p={5}>
+          <Box component="div" p={5}>
             <Typography p={5} width={{lg: "750px", md: "550px", xs: '300px'}} fontSize={20} fontWeight={400} color="#000000">{header2}</Typography>
           </Box>
           <img width={550} src={photo4} style={{ borderRadius: '20px'}} alt="Image" />

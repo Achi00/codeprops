@@ -19,12 +19,8 @@ const PostCard = ({ id, title, tech, description, photo, photo2, photo3, photo4,
         maxWidth: {lg: '400px', md: '300px', xs: '240px'},
         height: '350px',
         borderRadius: '25px',
-        backgroundColor: '#F0F0F0',
-        padding: '10px',
-        '&:hover': {
-          boxShadow: '5px 22px 50px 4px rgba(176, 176, 176, 0.8)',
-          // backgroundColor: 'rgba(71, 91, 232, 0.7)'
-        },
+        backgroundColor: 'transparent',
+        padding: "2rem",  
         cursor: 'default',
         color: '#000',
       }}
@@ -33,7 +29,7 @@ const PostCard = ({ id, title, tech, description, photo, photo2, photo3, photo4,
       <CardMedia 
         component="img"
         width="250px"
-        // height={310}
+        height="170px"
         image={photo}
         alt="card Image"
         sx={{ 
@@ -50,7 +46,9 @@ const PostCard = ({ id, title, tech, description, photo, photo2, photo3, photo4,
       />
       { 
         hover === true ? (
-          <Box sx={{
+          <Box 
+          component="div"
+          sx={{
             position: 'relative',
             bottom: '25%',
             left: '50%',
@@ -79,6 +77,7 @@ const PostCard = ({ id, title, tech, description, photo, photo2, photo3, photo4,
         </Button>
         ) : (
           <Box 
+          component="div"
           sx={{
             width: '48%',
             position: 'absolute',
@@ -95,7 +94,9 @@ const PostCard = ({ id, title, tech, description, photo, photo2, photo3, photo4,
         )
         
       }
-      <Box sx={{position: 'relative'}}>
+      <Box 
+      component="div"
+      sx={{position: 'relative'}}>
       <CardContent sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: '10px', padding: '5px', textTransform: 'capitalize'}}>
         <Stack direction="column">
           <Typography fontSize={22} fontWeight={700}>{title}</Typography>

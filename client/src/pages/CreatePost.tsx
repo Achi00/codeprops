@@ -8,10 +8,10 @@ import Form from 'components/common/Form'
 const CreatePost = () => {
   const navigate = useNavigate()
   const { data:user } = useGetIdentity()
-  if (!user) {
+  if (user?.email !== process.env.REACT_APP_ADMIN_USER) {
     navigate('/')
   }
-  if (user?.email !== process.env.REACT_APP_ADMIN_USER) {
+  if (!user) {
     navigate('/')
   }
   const [ postImage, setPostImage ] = useState({name: '', url: ''})

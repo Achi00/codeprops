@@ -44,5 +44,4 @@ export interface FormProps {
     postImage2: { name: string, url: string },
     postImage3: { name: string, url: string },
     postImage4: { name: string, url: string },
-    
 }

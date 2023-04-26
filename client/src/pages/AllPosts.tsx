@@ -34,14 +34,16 @@ const AllPosts = () => {
     if (isError) return <Typography fontSize={25} fontWeight={700} color="#11142d">Error</Typography>
     
   return (
-    <Box>
-      <Box mt="20px" sx={{ displey: 'flex', flexWrap: 'wrap', gap: 3}}>
+    <Box
+    component="div"
+    >
+      <Box component="div" mt="20px" sx={{ displey: 'flex', flexWrap: 'wrap', gap: 3}}>
         <Stack direction="column" width="100%">
           <Typography p={3} fontSize={25} fontWeight={700} color="#11142d">
             {!allPosts.length ? 'There are no posts to show' : 'All Posts'}
           </Typography>
-          <Box mb={2} mt={3} display="flex" width="84%" justifyContent="space-between" flexWrap="wrap">
-            <Box  display="flex" gap={2} flexWrap="wrap" mb={{ xs: '20px', sm: 0}}>
+          <Box component="div" mb={2} mt={3} display="flex" width="84%" justifyContent="space-between" flexWrap="wrap">
+            <Box component="div"  display="flex" gap={2} flexWrap="wrap" mb={{ xs: '20px', sm: 0}}>
               <TextField 
               sx={{ paddingLeft: '40px' }}
                 variant="outlined"
@@ -96,7 +98,7 @@ const AllPosts = () => {
             />
         </Stack>)
         }
-        <Box mt="20px" padding="24px" sx={{ display: 'flex', flexWrap: 'wrap', gap: 3}}>
+        <Box component="div" mt="20px" padding="24px" sx={{ display: 'flex', flexWrap: 'wrap', gap: 3}}>
           {allPosts.map(post => (
             <PostCard 
               key={post._id}
@@ -116,7 +118,7 @@ const AllPosts = () => {
         </Box>
         </Stack>
         {allPosts.length > 0 && (
-          <Box display="flex" ml="30px" gap={2} mt={3} flexWrap="wrap">
+          <Box component="div" display="flex" ml="30px" gap={2} mt={3} flexWrap="wrap">
             <CustomButton 
               handleClick={() => setCurrent(prev => prev - 1)}
               title="Previous"
@@ -126,7 +128,7 @@ const AllPosts = () => {
               width="200px"
               disabled={!(current > 1)}
             />
-            <Box mt="20px" display={{ xs: 'none', sm: 'flex'}} alignItems="center" gap="5px">
+            <Box component="div" mt="20px" display={{ xs: 'none', sm: 'flex'}} alignItems="center" gap="5px">
                 Page{` `} <strong>of {pageCount}</strong>
             </Box>
             <CustomButton 

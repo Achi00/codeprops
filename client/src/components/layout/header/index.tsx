@@ -11,7 +11,7 @@ import {
 import { ColorModeContext } from "contexts";
 import { useNavigate } from "react-router-dom";
 
-export const Header: React.FC = () => {
+export const Header = () => {
   const { mode, setMode } = useContext(ColorModeContext);
   const navigate = useNavigate()
   const { data: user } = useGetIdentity();
