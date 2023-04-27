@@ -27,43 +27,19 @@ export const GoogleButton = (): JSX.Element => {
           navigate('/posts');
         },
       });
-      // window.google.accounts.id.renderButton(divRef.current, {
-      //   theme: 'filled_blue',
-      //   size: 'medium',
-      //   type: 'standard',
-      // });
+      window.google.accounts.id.renderButton(divRef.current, {
+        theme: 'filled_black',
+        size: 'medium',
+        type: 'standard',
+      });
     } catch (error) {
       console.log(error);
     }
   }, []);
 
-  const handleButtonClick = () => {
-    // Trigger Google login flow
-    if (window?.google && window?.google?.accounts && window?.google?.accounts?.id) {
-      window.google.accounts.id.prompt();
-    }
-  };
 
   return (
-    <div ref={divRef}>
-      {/* Custom style for Google login button */}
-      <button
-        onClick={handleButtonClick}
-        style={{
-          // Add your custom styles here
-          backgroundColor: '#0D1318',
-          color: '#fcfcfc',
-          borderRadius: '5px',
-          padding: '10px',
-          fontSize: '16px',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          // Add any other custom styles as needed
-        }}
-      >
-        Sign in with Google
-      </button>
-    </div>
+    <div ref={divRef} />
   );
 };
 
@@ -78,7 +54,7 @@ export const Login: React.FC = () => {
       height="50px" 
       display="flex" 
       justifyContent="center" 
-      gap={{lg: "80%", md: "60%", xs: '10%' }}
+      gap={{lg: "80%", md: "50%", sm:'15%', xs: '10%' }}
       alignItems="center" 
       width="100%" 
       py="1rem"

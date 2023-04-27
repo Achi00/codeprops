@@ -16,6 +16,7 @@ import { Title, Sider, Layout, Header } from "components/layout";
 import { CredentialResponse } from "interfaces/google";
 import { parseJwt } from "utils/parse-jwt";
 import { Login, Home, AllPosts, PostDetails, CreatePost, EditPost } from "pages";
+import Footer from "components/Footer";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -118,10 +119,10 @@ function App() {
               options: { label: 'Posts'},
             },
             // {
-            //   name: "react",
+            //   name: "Blog",
             //   list: MuiInferencer,
             //   options: { label: 'React JS'},
-            //   icon: <JavascriptOutlinedIcon />
+            //   icon: <EditNoteIcon />
             // },
             // {
             //   name: "crud",
@@ -140,6 +141,7 @@ function App() {
           Sider={Sider}
           Layout={Layout}
           Header={Header}
+          Footer={Footer}
           routerProvider={routerProvider}
           authProvider={authProvider}
           LoginPage={Login}

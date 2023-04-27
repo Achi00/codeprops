@@ -1,20 +1,8 @@
 import { useEffect, useState } from "react";
 import { useGetIdentity, useList } from "@pankod/refine-core";
 import { PostCard, CustomButton } from "components";
-import {
-  Typography,
-  Box,
-  Stack,
-  Card,
-  CardMedia,
-  CardContent,
-} from "@pankod/refine-mui";
-import axios from "axios";
+import { Typography, Box, Stack } from "@pankod/refine-mui";
 import "../index.css";
-import CodeIcon from "@mui/icons-material/Code";
-import SubtitlesIcon from "@mui/icons-material/Subtitles";
-import DataObjectIcon from "@mui/icons-material/DataObject";
-import Three from "components/3d/Three";
 import { motion } from "framer-motion";
 import astronaut from "../assets/astronaut.jpg";
 import cp from "../assets/cp.png";
@@ -27,21 +15,11 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { revealVariants, textRevealVariant } from "../assets/motion.js";
 import EveScene from "components/3d/Eve";
 import CheckIcon from "@mui/icons-material/Check";
+import { Loading } from "components";
 
 const Home = () => {
   const navigate = useNavigate();
   const { data: user } = useGetIdentity();
-  const [imgs, setImgs] = useState<any[]>([]);
-  useEffect(() => {
-    axios
-      .get("https://my-json-server.typicode.com/Achi00/fake-api/photos")
-      .then((res) => {
-        setImgs(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   const { data, isLoading, isError } = useList({
     resource: "posts",
@@ -54,12 +32,15 @@ const Home = () => {
 
   const latestPosts = data?.data ?? [];
 
-  if (isLoading) return <Typography>Loading...</Typography>;
+  if (isLoading) return <Loading />;
   if (isError) return <Typography>Error</Typography>;
 
   return (
     <Box
       component="div"
+      display="flex"
+      justifyContent="center"
+      paddingRight="200px"
       sx={{
         overflowX: "hidden",
         background: "linear-gradient(130deg, #fff, #adb5bd, #fff)",
@@ -75,7 +56,13 @@ const Home = () => {
           >
             <Stack
               direction={{ lg: "row", md: "row", sm: "column" }}
-              justifyContent="space-between"
+              justifyContent={{
+                lg: "space-between",
+                md: "space-between",
+                sm: "center",
+                xs: "center",
+              }}
+              alignItems="center"
               gap="2vmin"
               p={{ lg: "5rem", md: "4rem", sm: "2rem", xs: "1rem" }}
             >
@@ -83,6 +70,8 @@ const Home = () => {
                 component={motion.div}
                 display="flex"
                 flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
                 gap="2vmin"
               >
                 <Typography
@@ -94,7 +83,7 @@ const Home = () => {
                   justifyContent="flex-start"
                   px={5}
                 >
-                  Learn, Create & Deploy{" "}
+                  Learn, Create & Deploy
                 </Typography>
                 <Typography
                   color="#7c7c7c"
@@ -137,13 +126,14 @@ const Home = () => {
               </Box>
               <Box
                 component="div"
+                mt="50px"
+                width={{ lg: "350px", md: "300px", sm: "270px", xs: "220px" }}
                 sx={{
                   position: "relative",
                   background: "red",
                   display: "flex",
                   justifyContent: "center",
                   borderRadius: "35px",
-                  width: "350px",
                 }}
               >
                 <img
@@ -152,14 +142,16 @@ const Home = () => {
                     display: "flex",
                     justifyContent: "flex-end",
                   }}
-                  width={350}
-                  height={500}
+                  width="100%"
+                  height="auto"
                   src={astronaut}
                   alt="astronaut"
                 />
-                <div
+                <Box
+                  component="div"
                   className="img-circle"
-                  style={{
+                  width={{ lg: "150px", md: "120px", sm: "100px", xs: "90px" }}
+                  sx={{
                     position: "absolute",
                     zIndex: "10",
                     top: "-30px",
@@ -170,8 +162,8 @@ const Home = () => {
                     alignItems: "center",
                   }}
                 >
-                  <img width={150} src={cp} alt="cp" />
-                </div>
+                  <img width="70%" height="auto" src={cp} alt="cp" />
+                </Box>
               </Box>
             </Stack>
           </Stack>
@@ -195,6 +187,7 @@ const Home = () => {
               component="div"
               display="flex"
               flexWrap="wrap"
+              justifyContent="center"
               gap="2vmin"
               mt="50px"
               ml="50px"
@@ -271,36 +264,15 @@ const Home = () => {
             </Box>
           </Stack>
           {/* section 2 */}
-          {/* <Stack direction="column">
-            <Typography
-              color="#000"
-              fontSize={40}
-              fontWeight={900}
-              display="flex"
-              justifyContent="flex-start"
-              p={5}
-            >
-              Explore, Learn & Practice.
-            </Typography>
-            <Typography
-              color="#777777"
-              fontSize={25}
-              fontWeight={400}
-              display="flex"
-              justifyContent="flex-start"
-              p={8}
-            >
-              Codeprops teaches you to learn and create user friendly,
-              <br />
-              and beautiful websites giving you all the information,
-              <br />
-              source code and detail explanation in code itself with comments
-            </Typography>
-          </Stack> */}
           <Stack
             width="100%"
             display="flex"
-            justifyContent="space-between"
+            justifyContent={{
+              lg: "space-between",
+              md: "space-between",
+              sm: "center",
+              xs: "center",
+            }}
             px={{ lg: "7vmin", md: "5vmin", sm: "2vmin", xs: "1.5vmin" }}
             direction={{ lg: "row", md: "row", sm: "column", xs: "column" }}
           >
@@ -317,7 +289,12 @@ const Home = () => {
               {/* check card 1 */}
               <Stack
                 direction="column"
-                alignItems="flex-start"
+                alignItems={{
+                  lg: "flex-start",
+                  md: "flex-start",
+                  sm: "center",
+                  xs: "center",
+                }}
                 justifyContent="center"
               >
                 <Typography
@@ -352,7 +329,12 @@ const Home = () => {
               {/* check card 2 */}
               <Stack
                 direction="column"
-                alignItems="flex-start"
+                alignItems={{
+                  lg: "flex-start",
+                  md: "flex-start",
+                  sm: "center",
+                  xs: "center",
+                }}
                 justifyContent="center"
               >
                 <Typography
@@ -387,7 +369,12 @@ const Home = () => {
               {/* check card 3 */}
               <Stack
                 direction="column"
-                alignItems="flex-start"
+                alignItems={{
+                  lg: "flex-start",
+                  md: "flex-start",
+                  sm: "center",
+                  xs: "center",
+                }}
                 justifyContent="center"
               >
                 <Typography
@@ -632,17 +619,52 @@ const Home = () => {
           padding="20px"
           display="flex"
           flexDirection="column"
-          minWidth="100%"
+          minWidth="95%"
+          justifyContent="center"
+          alignItems="center"
           mt="25px"
           ml="25px"
         >
-          <Typography fontSize="18px" fontWeight={600} color="#11142d">
-            Latest Posts
-          </Typography>
+          <Stack
+            direction={{ lg: "row", md: "row", sm: "column", xs: "column" }}
+            justifyContent="space-between"
+            px="2vmin"
+            margin="10px"
+            width="100%"
+            alignItems="center"
+          >
+            <Typography fontSize="18px" fontWeight={600} color="#11142d">
+              Latest Posts
+            </Typography>
+            {user ? (
+              <CustomButton
+                type="submit"
+                title={"Explore More"}
+                backgroundColor="#0D1318"
+                handleClick={() => navigate("/posts")}
+                color="#fcfcfc"
+                width="180px"
+                height="50px"
+                icon={<ArrowOutwardIcon />}
+              />
+            ) : (
+              <Typography
+                fontSize="18px"
+                bgcolor="#11142d"
+                padding="1vmin"
+                borderRadius="25px"
+                fontWeight={600}
+                color="#f2f2f2"
+              >
+                Sign in to get access on every project
+              </Typography>
+            )}
+          </Stack>
+
           <Box
             component="div"
             mt={2.5}
-            p={3}
+            width={{ lg: "95%", md: "95%", sm: "90%", xs: "85%" }}
             sx={{
               display: "flex",
               flexWrap: "wrap",
@@ -651,6 +673,8 @@ const Home = () => {
               justifyContent: "center",
               backgroundColor: "#0D1318",
               margin: "2vmin",
+              position: "relative",
+              right: "10px",
               borderRadius: "25px",
             }}
           >

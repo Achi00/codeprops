@@ -16,12 +16,14 @@ const PostCard = ({ id, title, tech, description, photo, photo2, photo3, photo4,
       component={Link}
       to={`/posts/show/${id}`}
       sx={{
-        maxWidth: {lg: '400px', md: '300px', xs: '240px'},
+        maxWidth: {lg: '400px', md: '350px', xs: '280px'},
         height: '350px',
         borderRadius: '25px',
-        backgroundColor: 'transparent',
-        padding: "2rem",  
-        cursor: 'default',
+        backgroundColor: '#131B24',
+        padding: "2vmin", 
+        marginTop: '30px', 
+        marginBottom: '30px', 
+        cursor: 'pointer',
         color: '#000',
       }}
       elevation={0}
@@ -62,7 +64,7 @@ const PostCard = ({ id, title, tech, description, photo, photo2, photo3, photo4,
               bottom: '30%',
               left: '50%',
               transform: 'translate(-50%, 50%)',
-              backgroundColor: '#0099FF', 
+              backgroundColor: '#0D1318', 
               color: 'white', 
               fontSize: '18px', 
               fontWeight: '900',
@@ -81,11 +83,9 @@ const PostCard = ({ id, title, tech, description, photo, photo2, photo3, photo4,
           sx={{
             width: '48%',
             position: 'absolute',
-            // bottom: '25%',
-            // left: '50%',
             transform: 'translate(50%, -50%)',
             }}>
-          <GoogleButton />
+            <GoogleButton />
           </Box>
         )}
         </Box>
@@ -97,9 +97,9 @@ const PostCard = ({ id, title, tech, description, photo, photo2, photo3, photo4,
       <Box 
       component="div"
       sx={{position: 'relative'}}>
-      <CardContent sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: '10px', padding: '5px', textTransform: 'capitalize'}}>
+      <CardContent sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: '10px', padding: '5px', textTransform: 'capitalize', textAlign: 'center'}}>
         <Stack direction="column">
-          <Typography fontSize={22} fontWeight={700}>{title}</Typography>
+          <Typography fontSize={22} fontWeight={700} color="#B7BEC5">{title}</Typography>
           <Typography fontSize={20} fontWeight={500} color="#999999">{postType}</Typography>
           <Typography fontSize={18} fontWeight={500} color="#999999">{tech}</Typography>
         </Stack>

@@ -3,6 +3,10 @@
     margin: 0;
     padding: 0;
   }
+
+  body, html {
+    overflow-x: hidden;
+  }
   
 .MuiBox-root {
   padding: 0px !important;
@@ -195,11 +199,31 @@ a {
   padding-right: 2rem;
 }
 
-/* iframe */
+.media {
+  color: #e9ecef;
+  transition: 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+a:hover {
+  color: #9b9b9b;
+}
 
-.htmlScreen iframe {
-  width: 1180px;
-  height: 760px;
-  border: none;
-  border-radius: 25px;
+/* loading */
+
+.loading-text {
+  animation: dots 0.1s infinite; /* apply the animation to the <p> element */
+}
+
+@keyframes dots {
+  0% {
+    content: ".";
+  }
+  33% {
+    content: "..";
+  }
+  66% {
+    content: "...";
+  }
 }

@@ -10,13 +10,14 @@ import {
 
 import { ColorModeContext } from "contexts";
 import { useNavigate } from "react-router-dom";
+import Loading from "components/Loading";
 
 export const Header = () => {
   const { mode, setMode } = useContext(ColorModeContext);
   const navigate = useNavigate()
   const { data: user } = useGetIdentity();
   if (user === undefined) {
-    <>Loading...</>
+    <Loading />
   } else if (!user) {
     // user doesn't exist, so redirect to the home page
     navigate('/')
@@ -31,6 +32,7 @@ export const Header = () => {
         <Stack
           direction="row"
           width="100%"
+          marginLeft="4vmin"
           justifyContent="flex-end"
           alignItems="center"
         >
@@ -44,7 +46,7 @@ export const Header = () => {
               <Typography variant="subtitle2">{user?.name}</Typography>
             ) : null}
             {user?.avatar ? (
-              <Avatar src={user?.avatar} alt={user?.name} />
+              <Avatar  sx={{ width: 24, height: 24 }} src={user?.avatar} alt={user?.name} />
             ) : null}
           </Stack>
         </Stack>

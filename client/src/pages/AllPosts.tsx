@@ -5,6 +5,9 @@ import { useNavigate } from "@pankod/refine-react-router-v6"
 import { useGetIdentity } from "@pankod/refine-core";
 import { useMemo } from 'react'
 import { PostCard, CustomButton } from "components"
+import { Loading } from "components";
+import { revealVariants } from "assets/motion";
+import { motion } from "framer-motion";
 
 const AllPosts = () => {
     const navigate = useNavigate()
@@ -30,12 +33,14 @@ const AllPosts = () => {
       }
     }, [filters])
 
-    if (isLoading) return <Typography fontSize={25} fontWeight={700} color="#11142d">Loading...</Typography>
+    if (isLoading) return <Loading />
     if (isError) return <Typography fontSize={25} fontWeight={700} color="#11142d">Error</Typography>
     
   return (
     <Box
-    component="div"
+    component={motion.div}
+    variants={revealVariants} initial="hidden" whileInView="show"
+    mb="5vmin"
     >
       <Box component="div" mt="20px" sx={{ displey: 'flex', flexWrap: 'wrap', gap: 3}}>
         <Stack direction="column" width="100%">
@@ -89,7 +94,7 @@ const AllPosts = () => {
             <CustomButton 
               type="submit"
               title={'Add Post'}
-              backgroundColor="#475be8"
+              backgroundColor="#0D1318"
               handleClick={() => navigate('/posts/create')}
               color="#fcfcfc"
               width="180px"
@@ -98,13 +103,13 @@ const AllPosts = () => {
             />
         </Stack>)
         }
-        <Box component="div" mt="20px" padding="24px" sx={{ display: 'flex', flexWrap: 'wrap', gap: 3}}>
+        <Box component="div" mt="20px" padding="24px" sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, backgroundColor: '#0D1318', borderRadius: '25px', justifyContent: 'center'}}>
           {allPosts.map(post => (
             <PostCard 
               key={post._id}
               id={post._id}
               title={post.title}
-              tech={post.text}
+              tech={post.tech}
               header={post.header}
               header2={post.header2}
               description={post.description}
@@ -122,7 +127,7 @@ const AllPosts = () => {
             <CustomButton 
               handleClick={() => setCurrent(prev => prev - 1)}
               title="Previous"
-              backgroundColor="#475be8"
+              backgroundColor="#fcfcfc"
               color="#fcfcfc"
               height="50px"
               width="200px"
@@ -134,15 +139,15 @@ const AllPosts = () => {
             <CustomButton 
               handleClick={() => setCurrent(prev => prev + 1)}
               title="Next"
-              backgroundColor="#475be8"
-              color="#fcfcfc"
+              backgroundColor="#fcfcfc"
+              color="#fff"
               height="50px"
               width="200px"
               disabled={current === pageCount}
             />
             <Select
               variant="outlined"
-              color="info"
+              color="primary"
               displayEmpty
               required
               inputProps={{ 'arie-label' : 'Without label' }}
