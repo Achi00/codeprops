@@ -14,7 +14,7 @@ cloudinary.config({
 })
 
 const getAllPosts = async (req, res) => {
-    const { _end, _order, _start, _sort, title_like = "", postType = "" } = req.query
+    const { _end, _start, title_like = "", postType = "" } = req.query
     const query = {}
     if (postType !== "") {
         query.postType = postType
@@ -56,6 +56,7 @@ const createPost = async (req, res) => {
         postType, 
         header, 
         header2, 
+        header3, 
         tech, 
         photo,
         photo2,
@@ -85,6 +86,7 @@ const createPost = async (req, res) => {
         description,
         header, 
         header2,
+        header3,
         postType,
         tech,
         github,
@@ -105,41 +107,6 @@ const createPost = async (req, res) => {
     }
 }
 
-// const updatePost = async (req, res) => {
-//     try {
-//         const { id } = req.params
-//         const { 
-//             title, 
-//             description, 
-//             postType, 
-//             header, 
-//             header2, 
-//             tech, 
-//             photo,
-//             photo2,
-//             photo3 
-//         } = req.body
-
-//         const photoUrl = await cloudinary.uploader.upload(photo)
-//         const photoUrl2 = await cloudinary.uploader.upload(photo2)
-//         const photoUrl3 = await cloudinary.uploader.upload(photo3)
-
-//         await Post.findByIdAndUpdate({ _id: id}, {
-//             title, 
-//             description, 
-//             postType, 
-//             header, 
-//             header2, 
-//             tech, 
-//             photo: photoUrl.url,
-//             photo2: photoUrl2.url,
-//             photo3: photoUrl3.url,  
-//         })
-//         res.status(200).json({ message: 'Post updated successfully'})
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// }
 
 const updatePost = async (req, res) => {
     try {
@@ -150,6 +117,7 @@ const updatePost = async (req, res) => {
         postType,
         header,
         header2,
+        header3,
         tech,
         photo,
         photo2,
@@ -176,6 +144,7 @@ const updatePost = async (req, res) => {
         postType,
         header,
         header2,
+        header3,
         tech,
         photo: photoUrl?.url || post.photo,
         photo2: photoUrl2?.url || post.photo2,

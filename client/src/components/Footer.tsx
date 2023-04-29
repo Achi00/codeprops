@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import logo from "../assets/codeprops-w.png";
+import logo from "../assets/codeprops.png";
 import { useTable } from "@pankod/refine-core";
 
 const Footer = () => {
@@ -13,9 +13,10 @@ const Footer = () => {
     <Box
       component="div"
       sx={{
-        background: "black",
+        borderTop: '1xp solid black',
+        background: "linear-gradient(130deg, #fff, #adb5bd, #fff)",
         width: "100%",
-        height: "250px",
+        height: "200px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -29,7 +30,7 @@ const Footer = () => {
         justifyContent="space-between"
       >
         <img
-          style={{ maxWidth: "30%", height: "auto" }}
+          style={{ maxWidth: "20%", height: "auto" }}
           src={logo}
           alt="logo"
         />
@@ -43,7 +44,7 @@ const Footer = () => {
             <TwitterIcon />
           </a>
 
-          <Typography fontSize={18} fontWeight={900} color="#fff">
+          <Typography fontSize={16} fontWeight={900} color="#000">
             contact@codeprops.com
           </Typography>
         </Stack>

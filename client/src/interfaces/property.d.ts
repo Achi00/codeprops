@@ -20,6 +20,7 @@ export interface PostCardProps {
   description: string,
   header: string,
   header2: string,
+  header3: string,
   postType: string,
   photo: string,
   photo2: string,
