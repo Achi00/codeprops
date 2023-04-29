@@ -221,7 +221,7 @@ const PostDetails = () => {
           </Typography>
         </Stack>
         <Box component="div" width={{ lg: "750px", md: "550px", xs: "300px" }}>
-          <Typography p={5} fontSize="2vmin" fontWeight={700} color="#000000">
+          <Typography p={5} fontSize="2vmin" fontWeight={500} color="#000000">
             <pre>{header}</pre>
           </Typography>
         </Box>
@@ -230,20 +230,9 @@ const PostDetails = () => {
           style={{ borderRadius: "20px", maxWidth: "70%", height: "auto" }}
           alt="Image"
         />
-        <Box component="div" p={5}>
-          <Typography
-            sx={{
-              p: 5,
-              width: { lg: "750px", md: "550px", xs: "300px" },
-              fontSize: 20,
-              fontWeight: 700,
-              color: "#000000",
-              whiteSpace: "pre-wrap",
-              overflowWrap: "break-word",
-            }}
-            component="pre"
-          >
-            <pre>{header2}</pre>
+        <Box component="div" width={{ lg: "750px", md: "550px", xs: "300px" }}>
+          <Typography p={5} fontSize="2vmin" fontWeight={500} color="#000000">
+            <pre>{header}</pre>
           </Typography>
         </Box>
         <img
