@@ -233,19 +233,29 @@ a:hover {
   display: inline-block;
   background-color: #1E1E1E;
   border-radius: 35px;
-  color: #D4D4D4;
+  color: #0096c7;
   font-family: monospace;
   font-size: 14px;
   padding: 4vmin;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 .styledTextContainer {
   background-color: white;
   padding: 16px;
-  border-radius: 4px;
+  border-radius: 15px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  max-width: 100%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
+/* @media screen and (max-width: 900px) {
+  .styledTextContainer {
+    width: 420px;
+  }
+} */
+/*  */
 .string {
   color: #CE9178;
 }
@@ -263,9 +273,21 @@ a:hover {
 }
 
 .operator {
-  color: white;
+  color: rgb(53, 51, 141);
 }
 
 .comment {
-  color: #6A9955;
+  color: #40916c;
+}
+
+.code {
+  color: #00FF00;
+}
+
+.js {
+  color: #FFD866;
+}
+
+.link-img {
+  width: 500px;
 }

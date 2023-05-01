@@ -66,66 +66,40 @@ const PostDetails = () => {
     }
   };
 
-  type Props = {
-    header: string;
-    text?: string;
-  };
-
   interface CodeProps {
     text: string;
   }
 
-  // function StyledTypography(codeText: CodeProps) {
-  //   const { text } = codeText;
-  //   const modifiedText = text
-  //     .replace(/<>/g, '<span class="highlightedText">')
-  //     .replace(/<\/>/g, "</span>");
-
-  //   return (
-  //     <Typography
-  //       dangerouslySetInnerHTML={{ __html: modifiedText }}
-  //     ></Typography>
-  //   );
-  // }
-
-  // const createLink: React.FC<Props> = ({ header }) => {
-  //   const urlRegex = /(https?:\/\/[^\s]+)/g;
-  //   const headerWithLinks = header.replace(
-  //     urlRegex,
-  //     '<a href="$1" target="_blank">$1</a>'
-  //   );
-  //   return (
-  //     <Typography
-  //       p={5}
-  //       fontSize="2vmin"
-  //       fontWeight={500}
-  //       color="#000000"
-  //       dangerouslySetInnerHTML={{ __html: headerWithLinks }}
-  //     />
-  //   );
-  // };
-
   const StyledText: React.FC<CodeProps> = ({ text }) => {
-    const urlRegex = /((?:https?:\/\/)[^\s'"]+(?<![:\/]))/g;
+    const codeRegex = /<text>([\s\S]*?)<\/text>/g;
+    const imageRegex = /<img.*?src="(.*?)".*?>/g;
     const modifiedText = text
       .replace(
-        /((?:https?:\/\/)[^\s'"]+(?<![:\/]))/g,
+        /<img src="([^"]+)"\s*(\/?)>/g,
+        '<img src="$1" alt="Image" class="link-img" />'
+      )
+      .replace(
+        /(https?:\/\/(?!res\.cloudinary\.com)[^\s'"]+(?<![:\/]))/g,
         '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
       )
-      // .replace(
-      //   /(["'])(?<!https?:\/\/)(?:\\.|[^\\])*?\1/g,
-      //   '<span class="string">$&</span>'
-      // )
+      .replace(codeRegex, '<span class="code">$1</span>')
       .replace(
-        /\b(?:function|let|var|import|if|else|return|{|}\b)/g,
-        '<span class="function">$&</span>'
+        /\b(function|let|var|import|if|else|return|from)\b(?=\s)/g,
+        '<span class="keyword">$1</span>'
+      )
+      .replace(
+        /(')(?:(?<!\\)[^\\\n]|\\[\s\S])*?\1/g,
+        '<span class="string">$&</span>'
+      )
+      .replace(
+        /\b(useEffect|useState)\b(?=[\s,(])/g,
+        '<span class="js">$1</span>'
       )
       .replace(/<>/g, '<div class="highlightedTextWrapper">')
       .replace(/<\/>/g, "</div>")
       .replace(/(\b(?:const)\b)/g, '<span class="keyword">$1</span>')
       .replace(/([\{\}\[\]\(\)])/g, '<span class="special">$&</span>')
       .replace(/\/\*([\s\S]*?)\*\//g, '<span class="comment">$&</span>') // Highlight /* */ comments
-      // .replace(/\/\*([\s\S]*?)\*\//g, '<span class="comment">$&</span>') // Highlight // comments
       .replace(/<\/div><div class="highlightedTextWrapper"/g, "");
 
     return (
@@ -138,6 +112,7 @@ const PostDetails = () => {
       </div>
     );
   };
+
   return (
     <Box
       component={motion.div}
@@ -151,11 +126,16 @@ const PostDetails = () => {
       <Stack
         direction={{ lg: "row", md: "row", xs: "column" }}
         display="flex"
-        justifyContent="space-between"
+        justifyContent={{
+          lg: "space-between",
+          md: "center",
+          sm: "center",
+          xs: "center",
+        }}
         gap="4rem"
       >
         <Typography
-          fontSize={{ lg: 40, md: 25, xs: 10 }}
+          fontSize={{ lg: 40, md: 25, xs: 20 }}
           width={{ lg: 400, md: 360, xs: 280 }}
           fontWeight={900}
           color="#000000"
@@ -293,9 +273,17 @@ const PostDetails = () => {
             {tech}
           </Typography>
         </Stack>
-        <Box component="div" width={{ lg: "750px", md: "550px", xs: "300px" }}>
-          <Typography p={5} fontSize="2vmin" fontWeight={500} color="#000000">
-            {/* <pre>{createLink({ header })}</pre> */}
+        <Box
+          component="div"
+          // width={{ lg: "750px", md: "750px", xs: "300px" }}
+          maxWidth="100%"
+        >
+          <Typography
+            p={5}
+            fontSize={{ lg: "2vmin", md: "3vmin", xs: "2.5vmin" }}
+            fontWeight={500}
+            color="#000000"
+          >
             <pre>
               <StyledText text={header} />
             </pre>
@@ -306,7 +294,7 @@ const PostDetails = () => {
           style={{ borderRadius: "20px", maxWidth: "70%", height: "auto" }}
           alt="Image"
         />
-        <Box component="div" width={{ lg: "750px", md: "550px", xs: "300px" }}>
+        <Box component="div">
           <Typography p={5} fontSize="2vmin" fontWeight={500} color="#000000">
             {/* <pre>{createLink({ header: header2 })}</pre> */}
             <pre>
@@ -320,13 +308,7 @@ const PostDetails = () => {
           alt="Image"
         />
         <Box component="div" p={5}>
-          <Typography
-            p={5}
-            width={{ lg: "750px", md: "550px", xs: "300px" }}
-            fontSize={20}
-            fontWeight={700}
-            color="#000000"
-          >
+          <Typography p={5} fontSize={20} fontWeight={700} color="#000000">
             <StyledText text={header3} />
             {/* <pre>{createLink({ header: header3 })}</pre> */}
           </Typography>
