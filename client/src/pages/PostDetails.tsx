@@ -9,6 +9,7 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { CustomButton, Loading } from "components";
 import { motion } from "framer-motion";
 import { revealVariants } from "assets/motion";
+// import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
 
 const PostDetails = () => {
   const navigate = useNavigate();
@@ -65,13 +66,85 @@ const PostDetails = () => {
     }
   };
 
+  type Props = {
+    header: string;
+    text?: string;
+  };
+
+  interface CodeProps {
+    text: string;
+  }
+
+  // function StyledTypography(codeText: CodeProps) {
+  //   const { text } = codeText;
+  //   const modifiedText = text
+  //     .replace(/<>/g, '<span class="highlightedText">')
+  //     .replace(/<\/>/g, "</span>");
+
+  //   return (
+  //     <Typography
+  //       dangerouslySetInnerHTML={{ __html: modifiedText }}
+  //     ></Typography>
+  //   );
+  // }
+
+  // const createLink: React.FC<Props> = ({ header }) => {
+  //   const urlRegex = /(https?:\/\/[^\s]+)/g;
+  //   const headerWithLinks = header.replace(
+  //     urlRegex,
+  //     '<a href="$1" target="_blank">$1</a>'
+  //   );
+  //   return (
+  //     <Typography
+  //       p={5}
+  //       fontSize="2vmin"
+  //       fontWeight={500}
+  //       color="#000000"
+  //       dangerouslySetInnerHTML={{ __html: headerWithLinks }}
+  //     />
+  //   );
+  // };
+
+  const StyledText: React.FC<CodeProps> = ({ text }) => {
+    const urlRegex = /((?:https?:\/\/)[^\s'"]+(?<![:\/]))/g;
+    const modifiedText = text
+      .replace(
+        /((?:https?:\/\/)[^\s'"]+(?<![:\/]))/g,
+        '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+      )
+      // .replace(
+      //   /(["'])(?<!https?:\/\/)(?:\\.|[^\\])*?\1/g,
+      //   '<span class="string">$&</span>'
+      // )
+      .replace(
+        /\b(?:function|let|var|import|if|else|return|{|}\b)/g,
+        '<span class="function">$&</span>'
+      )
+      .replace(/<>/g, '<div class="highlightedTextWrapper">')
+      .replace(/<\/>/g, "</div>")
+      .replace(/(\b(?:const)\b)/g, '<span class="keyword">$1</span>')
+      .replace(/([\{\}\[\]\(\)])/g, '<span class="special">$&</span>')
+      .replace(/\/\*([\s\S]*?)\*\//g, '<span class="comment">$&</span>') // Highlight /* */ comments
+      // .replace(/\/\*([\s\S]*?)\*\//g, '<span class="comment">$&</span>') // Highlight // comments
+      .replace(/<\/div><div class="highlightedTextWrapper"/g, "");
+
+    return (
+      <div className="styledTextContainer">
+        <Typography
+          component="div"
+          sx={{ fontWeight: "700" }}
+          dangerouslySetInnerHTML={{ __html: modifiedText }}
+        />
+      </div>
+    );
+  };
   return (
     <Box
       component={motion.div}
       variants={revealVariants}
       initial="hidden"
       whileInView="show"
-      sx={{ textTransform: "capitalize" }}
+      // sx={{ textTransform: "capitalize" }}
       my={{ lg: 10, md: 8, xs: 2 }}
       mx={{ lg: 10, md: 8, xs: 2 }}
     >
@@ -222,7 +295,10 @@ const PostDetails = () => {
         </Stack>
         <Box component="div" width={{ lg: "750px", md: "550px", xs: "300px" }}>
           <Typography p={5} fontSize="2vmin" fontWeight={500} color="#000000">
-            <pre>{header}</pre>
+            {/* <pre>{createLink({ header })}</pre> */}
+            <pre>
+              <StyledText text={header} />
+            </pre>
           </Typography>
         </Box>
         <img
@@ -232,7 +308,10 @@ const PostDetails = () => {
         />
         <Box component="div" width={{ lg: "750px", md: "550px", xs: "300px" }}>
           <Typography p={5} fontSize="2vmin" fontWeight={500} color="#000000">
-            <pre>{header}</pre>
+            {/* <pre>{createLink({ header: header2 })}</pre> */}
+            <pre>
+              <StyledText text={header2} />
+            </pre>
           </Typography>
         </Box>
         <img
@@ -248,7 +327,8 @@ const PostDetails = () => {
             fontWeight={700}
             color="#000000"
           >
-            <pre>{header3}</pre>
+            <StyledText text={header3} />
+            {/* <pre>{createLink({ header: header3 })}</pre> */}
           </Typography>
         </Box>
         <img

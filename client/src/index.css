@@ -227,3 +227,45 @@ a:hover {
     content: "...";
   }
 }
+
+.highlightedTextWrapper {
+  width: 100%;
+  display: inline-block;
+  background-color: #1E1E1E;
+  border-radius: 35px;
+  color: #D4D4D4;
+  font-family: monospace;
+  font-size: 14px;
+  padding: 4vmin;
+  overflow-x: scroll;
+}
+.styledTextContainer {
+  background-color: white;
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.string {
+  color: #CE9178;
+}
+
+.keyword {
+  color: #C586C0;
+}
+
+.function {
+  color: purple;
+}
+
+.special {
+  color: purple;
+}
+
+.operator {
+  color: white;
+}
+
+.comment {
+  color: #6A9955;
+}
