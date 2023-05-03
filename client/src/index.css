@@ -235,27 +235,34 @@ a:hover {
   border-radius: 35px;
   color: #0096c7;
   font-family: monospace;
-  font-size: 14px;
   padding: 4vmin;
   overflow-x: auto;
 }
+
+
+.textContent {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
 .styledTextContainer {
-  background-color: white;
   padding: 16px;
   border-radius: 15px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   position: relative;
-  max-width: 100%;
+  max-width: 70%;
   white-space: pre-wrap;
   word-wrap: break-word;
 }
 
-/* @media screen and (max-width: 900px) {
+@media screen and (max-width: 520px) and (min-width: 300px) {
   .styledTextContainer {
-    width: 420px;
+    padding: 1vmin;
+    width: 90%;
   }
-} */
-/*  */
+}
+
 .string {
   color: #CE9178;
 }
@@ -289,5 +296,7 @@ a:hover {
 }
 
 .link-img {
-  width: 500px;
+  width: 40%;
+  height: auto;
+  border-radius: 25px;
 }

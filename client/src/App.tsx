@@ -15,7 +15,14 @@ import { ColorModeContextProvider } from "contexts";
 import { Title, Sider, Layout, Header } from "components/layout";
 import { CredentialResponse } from "interfaces/google";
 import { parseJwt } from "utils/parse-jwt";
-import { Login, Home, AllPosts, PostDetails, CreatePost, EditPost } from "pages";
+import {
+  Login,
+  Home,
+  AllPosts,
+  PostDetails,
+  CreatePost,
+  EditPost,
+} from "pages";
 import Footer from "components/Footer";
 
 const axiosInstance = axios.create();
@@ -39,15 +46,18 @@ function App() {
 
       // save user to mongo database
       if (profileObj) {
-        const response = await fetch('https://codeprops.onrender.com/api/v1/users', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: profileObj.name,
-            email: profileObj.email,
-            avatar: profileObj.picture,
-          })
-        })
+        const response = await fetch(
+          "https://codeprops.onrender.com/api/v1/users",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: profileObj.name,
+              email: profileObj.email,
+              avatar: profileObj.picture,
+            }),
+          }
+        );
         const data = await response.json();
 
         if (response.status === 200) {
@@ -56,17 +66,16 @@ function App() {
             JSON.stringify({
               ...profileObj,
               avatar: profileObj.picture,
-              userid: data._id
+              userid: data._id,
             })
-          )
-        } else Promise.reject()
+          );
+        } else Promise.reject();
       }
       localStorage.setItem("token", `${credential}`);
 
       return Promise.resolve();
     },
     logout: () => {
-      
       const token = localStorage.getItem("token");
 
       if (token && typeof window !== "undefined") {
@@ -77,7 +86,7 @@ function App() {
           return Promise.resolve();
         });
       }
-      window.location.reload()
+      window.location.reload();
       return Promise.resolve();
     },
     checkError: () => Promise.resolve(),
@@ -87,7 +96,7 @@ function App() {
       if (token) {
         return Promise.resolve();
       }
-      return Promise.reject();
+      return Promise.resolve();
     },
 
     getPermissions: () => Promise.resolve(),
@@ -95,6 +104,8 @@ function App() {
       const user = localStorage.getItem("user");
       if (user) {
         return Promise.resolve(JSON.parse(user));
+      } else {
+        return Promise.resolve({}); // Return an empty object instead of rejecting the promise
       }
     },
   };
@@ -116,7 +127,7 @@ function App() {
               show: PostDetails,
               create: CreatePost,
               edit: EditPost,
-              options: { label: 'Posts'},
+              options: { label: "Posts" },
             },
             // {
             //   name: "Blog",

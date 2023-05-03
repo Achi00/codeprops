@@ -32,6 +32,7 @@ import {
   useRouterContext,
   useMenu,
   useRefineContext,
+  useGetIdentity,
 } from "@pankod/refine-core";
 
 import { Title as DefaultTitle } from "../title";
@@ -184,10 +185,10 @@ export const Sider: typeof DefaultSider = ({ render }) => {
                   backgroundColor: isSelected ? "#0D1318" : "transparent",
                 },
                 justifyContent: "center",
-                margin: '10px auto',
-                borderRadius: '15px',
-                minHeight: '56px',
-                width: '90%',
+                margin: "10px auto",
+                borderRadius: "15px",
+                minHeight: "56px",
+                width: "90%",
               }}
             >
               <ListItemIcon
@@ -206,7 +207,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
                   fontSize: "16px",
                   fontWeight: isSelected ? "bold" : "normal",
                   color: isSelected ? "#fff" : "#160A17",
-                  marginLeft: '10px'
+                  marginLeft: "10px",
                 }}
               />
             </ListItemButton>
@@ -248,7 +249,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
               justifyContent: "center",
               minWidth: 36,
               color: "#808191",
-              marginLeft: '10px'
+              marginLeft: "10px",
             }}
           >
             <Dashboard />
@@ -265,44 +266,51 @@ export const Sider: typeof DefaultSider = ({ render }) => {
       </Tooltip>
     </CanAccess>
   ) : null;
+  const { data: user } = useGetIdentity();
 
-  const logout = isExistAuthentication && (
-    <Tooltip
-      title={t("buttons.logout", "Logout")}
-      placement="right"
-      disableHoverListener={!collapsed}
-      arrow
-    >
-      <ListItemButton
-        key="logout"
-        onClick={() => mutateLogout()}
-        sx={{ 
-          justifyContent: "center",
-          margin: '10px auto',
-          borderRadius: '15px',
-          minHeight: '56px',
-          width: '90%',
-        }}
+  const LogoutButton = () => {
+    if (!user || !user.email) {
+      return null;
+    }
+
+    return (
+      <Tooltip
+        title={t("buttons.logout", "Logout")}
+        placement="right"
+        disableHoverListener={!collapsed}
+        arrow
       >
-        <ListItemIcon
+        <ListItemButton
+          key="logout"
+          onClick={() => mutateLogout()}
           sx={{
             justifyContent: "center",
-            minWidth: 36,
-            color: "#000",
+            margin: "10px auto",
+            borderRadius: "15px",
+            minHeight: "56px",
+            width: "90%",
           }}
         >
-          <Logout />
-        </ListItemIcon>
-        <ListItemText
-          primary={t("buttons.logout", "Logout")}
-          primaryTypographyProps={{
-            noWrap: true,
-            fontSize: "16px",
-          }}
-        />
-      </ListItemButton>
-    </Tooltip>
-  );
+          <ListItemIcon
+            sx={{
+              justifyContent: "center",
+              minWidth: 36,
+              color: "#000",
+            }}
+          >
+            <Logout />
+          </ListItemIcon>
+          <ListItemText
+            primary={t("buttons.logout", "Logout")}
+            primaryTypographyProps={{
+              noWrap: true,
+              fontSize: "16px",
+            }}
+          />
+        </ListItemButton>
+      </Tooltip>
+    );
+  };
 
   const items = renderTreeView(menuItems, selectedKey);
 
@@ -310,7 +318,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
     if (render) {
       return render({
         dashboard,
-        logout,
+        logout: <LogoutButton />,
         items,
         collapsed,
       });
@@ -319,7 +327,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
       <>
         {dashboard}
         {items}
-        {logout}
+        <LogoutButton />
       </>
     );
   };
@@ -368,7 +376,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
           }}
         >
           <Box
-          component="div"
+            component="div"
             sx={{
               height: 64,
               display: "flex",
@@ -395,7 +403,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
           open
         >
           <Box
-          component="div"
+            component="div"
             sx={{
               height: 64,
               display: "flex",
@@ -406,7 +414,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
             <RenderToTitle collapsed={collapsed} />
           </Box>
           <Box
-          component="div"
+            component="div"
             sx={{
               flexGrow: 1,
               overflowX: "hidden",
@@ -422,9 +430,9 @@ export const Sider: typeof DefaultSider = ({ render }) => {
               textAlign: "center",
               borderRadius: "0px",
               borderTop: "1px solid #ffffff1a",
-              '&:hover': {
-                background: "#343a40"
-              }
+              "&:hover": {
+                background: "#343a40",
+              },
             }}
             fullWidth
             size="large"
@@ -434,7 +442,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
           </Button>
         </Drawer>
         <Box
-        component="div"
+          component="div"
           sx={{
             display: { xs: "block", md: "none" },
             position: "fixed",

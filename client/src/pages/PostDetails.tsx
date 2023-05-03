@@ -9,7 +9,9 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { CustomButton, Loading } from "components";
 import { motion } from "framer-motion";
 import { revealVariants } from "assets/motion";
-// import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomOneDarkReasonable } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import ReactHtmlParser from "react-html-parser";
 
 const PostDetails = () => {
   const navigate = useNavigate();
@@ -45,7 +47,8 @@ const PostDetails = () => {
     return <div>Something went wrong!</div>;
   }
 
-  const isCurrentUser = user.email === postDetails.creator.email;
+  const isCurrentUser =
+    user && postDetails && user.email === postDetails.creator.email;
 
   const handleDeletePost = () => {
     const response = window.confirm(
@@ -71,47 +74,54 @@ const PostDetails = () => {
   }
 
   const StyledText: React.FC<CodeProps> = ({ text }) => {
-    const codeRegex = /<text>([\s\S]*?)<\/text>/g;
-    const imageRegex = /<img.*?src="(.*?)".*?>/g;
-    const modifiedText = text
-      .replace(
-        /<img src="([^"]+)"\s*(\/?)>/g,
-        '<img src="$1" alt="Image" class="link-img" />'
-      )
-      .replace(
-        /(https?:\/\/(?!res\.cloudinary\.com)[^\s'"]+(?<![:\/]))/g,
-        '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
-      )
-      .replace(codeRegex, '<span class="code">$1</span>')
-      .replace(
-        /\b(function|let|var|import|if|else|return|from)\b(?=\s)/g,
-        '<span class="keyword">$1</span>'
-      )
-      .replace(
-        /(')(?:(?<!\\)[^\\\n]|\\[\s\S])*?\1/g,
-        '<span class="string">$&</span>'
-      )
-      .replace(
-        /\b(useEffect|useState)\b(?=[\s,(])/g,
-        '<span class="js">$1</span>'
-      )
-      .replace(/<>/g, '<div class="highlightedTextWrapper">')
-      .replace(/<\/>/g, "</div>")
-      .replace(/(\b(?:const)\b)/g, '<span class="keyword">$1</span>')
-      .replace(/([\{\}\[\]\(\)])/g, '<span class="special">$&</span>')
-      .replace(/\/\*([\s\S]*?)\*\//g, '<span class="comment">$&</span>') // Highlight /* */ comments
-      .replace(/<\/div><div class="highlightedTextWrapper"/g, "");
+    const codeRegex = /<code>([\s\S]*?)<\/code>/g;
+    const linkRegex = /<a href="([^"]+)"\s*>(.*?)<\/a>/g;
+    const imgRegex =
+      /<img src="([^"]+)"\s*alt="([^"]+)"\s*class="([^"]+)"\s*(\/?)>/g;
+
+    const content = text.split(codeRegex);
 
     return (
-      <div className="styledTextContainer">
-        <Typography
-          component="div"
-          sx={{ fontWeight: "700" }}
-          dangerouslySetInnerHTML={{ __html: modifiedText }}
-        />
-      </div>
+      <>
+        {content.map((part, index) => {
+          if (index % 2 === 0) {
+            // Text content (outside of <code> tags)
+            const modifiedPart = part
+              .replace(
+                linkRegex,
+                '<a href="$1" target="_blank" rel="noopener noreferrer">$2</a>'
+              )
+              .replace(imgRegex, '<img src="$1" alt="$2" class="$3" />');
+
+            return (
+              <div key={index} className="textContent">
+                {ReactHtmlParser(modifiedPart)}
+              </div>
+            );
+          } else {
+            // Code content (inside <code> tags)
+            return (
+              <div className="textContent">
+                <SyntaxHighlighter
+                  key={index}
+                  language="jsx"
+                  style={atomOneDarkReasonable}
+                >
+                  {part}
+                </SyntaxHighlighter>
+              </div>
+            );
+          }
+        })}
+      </>
     );
   };
+
+  const apiContent = `
+    <code>const hello = 'world';</code>
+    Visit <a href="https://example.com">https://example.com</a> for more information.
+    <img src="https://res.cloudinary.com/dle6xv667/image/upload/v1682889466/cmldmcqp09terrsmglju.png" alt="Image" class="link-img" />
+  `;
 
   return (
     <Box
@@ -119,22 +129,21 @@ const PostDetails = () => {
       variants={revealVariants}
       initial="hidden"
       whileInView="show"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
       // sx={{ textTransform: "capitalize" }}
       my={{ lg: 10, md: 8, xs: 2 }}
       mx={{ lg: 10, md: 8, xs: 2 }}
     >
       <Stack
-        direction={{ lg: "row", md: "row", xs: "column" }}
+        direction={{ lg: "row", md: "row", sm: "row", xs: "column" }}
         display="flex"
-        justifyContent={{
-          lg: "space-between",
-          md: "center",
-          sm: "center",
-          xs: "center",
-        }}
+        justifyContent="center"
         gap="4rem"
       >
         <Typography
+          component="h1"
           fontSize={{ lg: 40, md: 25, xs: 20 }}
           width={{ lg: 400, md: 360, xs: 280 }}
           fontWeight={900}
@@ -143,6 +152,7 @@ const PostDetails = () => {
           {title}
         </Typography>
         <Typography
+          component="h2"
           width={{ lg: 400, md: 360, xs: 280 }}
           fontSize={{ lg: 18, md: 15, xs: 12 }}
           fontWeight={600}
@@ -151,7 +161,7 @@ const PostDetails = () => {
           {description}
         </Typography>
       </Stack>
-      <Typography fontSize={25} fontWeight={700} color="#9D9D9D">
+      <Typography component="h2" fontSize={25} fontWeight={700} color="#9D9D9D">
         {postType}
       </Typography>
       <Box component="div">
@@ -241,7 +251,12 @@ const PostDetails = () => {
           <GitHubIcon sx={{ ml: "5px" }} />
         </Button>
       </Stack>
-      <Stack width="100%" direction="column" display="flex">
+      <Stack
+        width="100%"
+        direction="column"
+        display="flex"
+        justifyContent="center"
+      >
         <Box
           component="div"
           display="flex"
@@ -275,49 +290,91 @@ const PostDetails = () => {
         </Stack>
         <Box
           component="div"
-          // width={{ lg: "750px", md: "750px", xs: "300px" }}
-          maxWidth="100%"
+          display="flex"
+          justifyContent="center"
+          ml={{ lg: "10vmin", md: "4vmin" }}
         >
           <Typography
-            p={5}
+            component="h3"
+            width={{ lg: 1250, md: 560, xs: 380 }}
+            py={5}
             fontSize={{ lg: "2vmin", md: "3vmin", xs: "2.5vmin" }}
             fontWeight={500}
             color="#000000"
           >
-            <pre>
-              <StyledText text={header} />
-            </pre>
+            <StyledText text={header} />
           </Typography>
         </Box>
-        <img
-          src={photo2}
-          style={{ borderRadius: "20px", maxWidth: "70%", height: "auto" }}
-          alt="Image"
-        />
-        <Box component="div">
-          <Typography p={5} fontSize="2vmin" fontWeight={500} color="#000000">
-            {/* <pre>{createLink({ header: header2 })}</pre> */}
-            <pre>
-              <StyledText text={header2} />
-            </pre>
+        <Box
+          component="div"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <img
+            src={photo2}
+            style={{ borderRadius: "20px", maxWidth: "70%", height: "auto" }}
+            alt="Image"
+          />
+        </Box>
+        <Box
+          component="div"
+          display="flex"
+          justifyContent="center"
+          ml={{ lg: "10vmin", md: "4vmin" }}
+        >
+          <Typography
+            component="h3"
+            width={{ lg: 1070, md: 660, xs: 380 }}
+            py={5}
+            fontSize="2vmin"
+            fontWeight={500}
+            color="#000000"
+          >
+            <StyledText text={header2} />
           </Typography>
         </Box>
-        <img
-          src={photo3}
-          style={{ borderRadius: "20px", maxWidth: "70%", height: "auto" }}
-          alt="Image"
-        />
-        <Box component="div" p={5}>
-          <Typography p={5} fontSize={20} fontWeight={700} color="#000000">
+        <Box
+          component="div"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <img
+            src={photo3}
+            style={{ borderRadius: "20px", maxWidth: "70%", height: "auto" }}
+            alt="Image"
+          />
+        </Box>
+        <Box
+          component="div"
+          display="flex"
+          justifyContent="center"
+          ml={{ lg: "10vmin", md: "4vmin" }}
+        >
+          <Typography
+            component="h3"
+            width={{ lg: 850, md: 560, xs: 380 }}
+            py={5}
+            fontSize={{ lg: "2vmin", md: "3vmin", xs: "2.5vmin" }}
+            fontWeight={500}
+            color="#000000"
+          >
             <StyledText text={header3} />
-            {/* <pre>{createLink({ header: header3 })}</pre> */}
           </Typography>
         </Box>
-        <img
-          src={photo4}
-          style={{ borderRadius: "20px", maxWidth: "70%", height: "auto" }}
-          alt="Image"
-        />
+        <Box
+          component="div"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <img
+            src={photo4}
+            style={{ borderRadius: "20px", maxWidth: "70%", height: "auto" }}
+            alt="Image"
+          />
+        </Box>
       </Stack>
     </Box>
   );
