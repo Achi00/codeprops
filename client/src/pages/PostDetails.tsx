@@ -12,6 +12,7 @@ import { revealVariants } from "assets/motion";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomOneDarkReasonable } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import ReactHtmlParser from "react-html-parser";
+import Slider from "components/common/Slider";
 
 const PostDetails = () => {
   const navigate = useNavigate();
@@ -117,11 +118,12 @@ const PostDetails = () => {
     );
   };
 
-  const apiContent = `
-    <code>const hello = 'world';</code>
-    Visit <a href="https://example.com">https://example.com</a> for more information.
-    <img src="https://res.cloudinary.com/dle6xv667/image/upload/v1682889466/cmldmcqp09terrsmglju.png" alt="Image" class="link-img" />
-  `;
+  const images = [
+    "https://res.cloudinary.com/dle6xv667/image/upload/v1682889469/nfokrizh0gevbib0f3mc.png",
+    "https://res.cloudinary.com/dle6xv667/image/upload/v1682944198/ejynmhscg1dbaaz6xqcg.png",
+    "https://res.cloudinary.com/dle6xv667/image/upload/v1682883376/qsxsja3orwujdhpqewiq.png",
+    "https://res.cloudinary.com/dle6xv667/image/upload/v1682868416/ewql9cmhg5xpbs1p0axq.png",
+  ];
 
   return (
     <Box
@@ -145,7 +147,7 @@ const PostDetails = () => {
         <Typography
           component="h1"
           fontSize={{ lg: 40, md: 25, xs: 20 }}
-          width={{ lg: 400, md: 360, xs: 280 }}
+          width={{ lg: 400, md: 300, xs: 250 }}
           fontWeight={900}
           color="#000000"
         >
@@ -153,14 +155,17 @@ const PostDetails = () => {
         </Typography>
         <Typography
           component="h2"
-          width={{ lg: 400, md: 360, xs: 280 }}
           fontSize={{ lg: 18, md: 15, xs: 12 }}
+          width={{ lg: 400, md: 300, xs: 250 }}
           fontWeight={600}
           color="#000000"
         >
           {description}
         </Typography>
       </Stack>
+      <div className="slider-container">
+        <Slider images={images} />
+      </div>
       <Typography component="h2" fontSize={25} fontWeight={700} color="#9D9D9D">
         {postType}
       </Typography>
@@ -275,7 +280,7 @@ const PostDetails = () => {
           width="100%"
           display="flex"
           justifyContent="center"
-          alignItems="flex-end"
+          alignItems={{ lg: "flex-end", md: "flex-end", xs: "center" }}
         >
           <Typography
             fontSize={25}
@@ -296,7 +301,7 @@ const PostDetails = () => {
         >
           <Typography
             component="h3"
-            width={{ lg: 1250, md: 560, xs: 380 }}
+            width={{ lg: 1250, md: 560, sm: 400, xs: 300 }}
             py={5}
             fontSize={{ lg: "2vmin", md: "3vmin", xs: "2.5vmin" }}
             fontWeight={500}
@@ -325,7 +330,7 @@ const PostDetails = () => {
         >
           <Typography
             component="h3"
-            width={{ lg: 1070, md: 660, xs: 380 }}
+            width={{ lg: 1250, md: 560, sm: 400, xs: 300 }}
             py={5}
             fontSize="2vmin"
             fontWeight={500}
@@ -354,7 +359,7 @@ const PostDetails = () => {
         >
           <Typography
             component="h3"
-            width={{ lg: 850, md: 560, xs: 380 }}
+            width={{ lg: 1250, md: 560, sm: 400, xs: 300 }}
             py={5}
             fontSize={{ lg: "2vmin", md: "3vmin", xs: "2.5vmin" }}
             fontWeight={500}

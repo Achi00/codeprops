@@ -489,6 +489,7 @@ const Home = () => {
                 header={post.header}
                 header2={post.header2}
                 header3={post.header3}
+                imgurl={post.imgurl}
               />
             ))}
           </Box>

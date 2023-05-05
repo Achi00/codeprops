@@ -21,6 +21,7 @@ export interface PostCardProps {
   header: string,
   header2: string,
   header3: string,
+  imgurl: string,
   postType: string,
   photo: string,
   photo2: string,
