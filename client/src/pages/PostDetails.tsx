@@ -10,7 +10,7 @@ import { CustomButton, Loading } from "components";
 import { motion } from "framer-motion";
 import { revealVariants } from "assets/motion";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { atomOneDarkReasonable } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import ReactHtmlParser from "react-html-parser";
 import Slider from "components/common/Slider";
 
@@ -38,6 +38,7 @@ const PostDetails = () => {
     postType,
     github,
     preview,
+    imgurl,
   } = postDetails;
 
   if (isLoading) {
@@ -103,11 +104,7 @@ const PostDetails = () => {
             // Code content (inside <code> tags)
             return (
               <div className="textContent">
-                <SyntaxHighlighter
-                  key={index}
-                  language="jsx"
-                  style={atomOneDarkReasonable}
-                >
+                <SyntaxHighlighter key={index} language="jsx" style={oneDark}>
                   {part}
                 </SyntaxHighlighter>
               </div>
@@ -118,12 +115,7 @@ const PostDetails = () => {
     );
   };
 
-  const images = [
-    "https://res.cloudinary.com/dle6xv667/image/upload/v1682889469/nfokrizh0gevbib0f3mc.png",
-    "https://res.cloudinary.com/dle6xv667/image/upload/v1682944198/ejynmhscg1dbaaz6xqcg.png",
-    "https://res.cloudinary.com/dle6xv667/image/upload/v1682883376/qsxsja3orwujdhpqewiq.png",
-    "https://res.cloudinary.com/dle6xv667/image/upload/v1682868416/ewql9cmhg5xpbs1p0axq.png",
-  ];
+  const images = imgurl;
 
   return (
     <Box
@@ -142,11 +134,12 @@ const PostDetails = () => {
         direction={{ lg: "row", md: "row", sm: "row", xs: "column" }}
         display="flex"
         justifyContent="center"
-        gap="4rem"
+        gap="4vmin"
+        pb="4vmin"
       >
         <Typography
           component="h1"
-          fontSize={{ lg: 40, md: 25, xs: 20 }}
+          fontSize={{ lg: "2vw", md: 25, xs: 20 }}
           width={{ lg: 400, md: 300, xs: 250 }}
           fontWeight={900}
           color="#000000"
@@ -155,7 +148,7 @@ const PostDetails = () => {
         </Typography>
         <Typography
           component="h2"
-          fontSize={{ lg: 18, md: 15, xs: 12 }}
+          fontSize={{ lg: "1vw", md: 15, xs: 12 }}
           width={{ lg: 400, md: 300, xs: 250 }}
           fontWeight={600}
           color="#000000"
