@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouterContext, TitleProps } from "@pankod/refine-core";
-import { Button } from "@pankod/refine-mui";
+import { Typography, Button } from "@pankod/refine-mui";
 import { logo } from "assets";
 
 export const Title: React.FC<TitleProps> = ({ collapsed }) => {
@@ -10,9 +10,17 @@ export const Title: React.FC<TitleProps> = ({ collapsed }) => {
     <Button fullWidth variant="text" disableRipple>
       <Link to="/">
         {collapsed ? (
-          <img src={logo} alt="Refine" width="55px" />
+          <Typography
+            sx={{ fontSize: "0.8vmin", color: "#000", fontWeight: "bold" }}
+          >
+            MyHealth
+          </Typography>
         ) : (
-          <img src={logo} alt="Refine" width="140px" />
+          <Typography
+            sx={{ fontSize: "2vmin", color: "#000", fontWeight: "bold" }}
+          >
+            MyHealth
+          </Typography>
         )}
       </Link>
     </Button>

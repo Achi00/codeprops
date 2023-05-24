@@ -180,9 +180,9 @@ export const Sider: typeof DefaultSider = ({ render }) => {
                 py: isNested ? 1.25 : 1,
                 "&.Mui-selected": {
                   "&:hover": {
-                    backgroundColor: isSelected ? "#343a40" : "transparent",
+                    backgroundColor: isSelected ? "#03045e" : "transparent",
                   },
-                  backgroundColor: isSelected ? "#0D1318" : "transparent",
+                  backgroundColor: isSelected ? "#023e8a" : "transparent",
                 },
                 justifyContent: "center",
                 margin: "10px auto",
@@ -255,7 +255,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
             <Dashboard />
           </ListItemIcon>
           <ListItemText
-            primary={translate("dashboard.title", "Dashboard")}
+            primary={translate("dashboard.title", "Home")}
             primaryTypographyProps={{
               noWrap: true,
               fontSize: "16px",
@@ -396,6 +396,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
             "& .MuiDrawer-paper": {
               width: drawerWidth,
               bgcolor: "#fcfcfc",
+              borderRight: "1px solid #000",
               overflow: "hidden",
               transition: "width 200ms cubic-bezier(0.4, 0, 0.6, 1) 0ms",
             },

@@ -8,23 +8,17 @@ export interface FormFieldProp {
 export interface FormValues {
     title: string,
     description: string,
-    propertyType: string,
-    location: string,
+    productType: string,
+    inStock: boolean,
     price: number | undefined,
 }
 
 export interface PostCardProps {
   id?: BaseKey | undefined,
   title: string,
-  tech: string,
   description: string,
-  header: string,
-  header2: string,
-  header3: string,
-  imgurl: string,
-  postType: string,
+  productType: string,
   photo: string,
   photo2: string,
-  photo3: string,
-  photo4: string,
+  price: number,
 }

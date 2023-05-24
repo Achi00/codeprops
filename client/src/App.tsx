@@ -22,8 +22,16 @@ import {
   PostDetails,
   CreatePost,
   EditPost,
+  Amino,
+  Vitamin,
+  Powder,
+  Gainer,
 } from "pages";
-import Footer from "components/Footer";
+import ExtensionIcon from "@mui/icons-material/Extension";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import MedicationIcon from "@mui/icons-material/Medication";
+import UpgradeIcon from "@mui/icons-material/Upgrade";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -46,18 +54,15 @@ function App() {
 
       // save user to mongo database
       if (profileObj) {
-        const response = await fetch(
-          "https://codeprops.onrender.com/api/v1/users",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name: profileObj.name,
-              email: profileObj.email,
-              avatar: profileObj.picture,
-            }),
-          }
-        );
+        const response = await fetch("http://localhost:8080/api/v1/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: profileObj.name,
+            email: profileObj.email,
+            avatar: profileObj.picture,
+          }),
+        });
         const data = await response.json();
 
         if (response.status === 200) {
@@ -116,7 +121,7 @@ function App() {
       <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
       <RefineSnackbarProvider>
         <Refine
-          dataProvider={dataProvider("https://codeprops.onrender.com/api/v1")}
+          dataProvider={dataProvider("http://localhost:8080/api/v1")}
           notificationProvider={notificationProvider}
           ReadyPage={ReadyPage}
           catchAll={<ErrorComponent />}
@@ -127,32 +132,40 @@ function App() {
               show: PostDetails,
               create: CreatePost,
               edit: EditPost,
-              options: { label: "Posts" },
+              options: { label: "All products" },
+              icon: <ShoppingBagIcon />,
             },
-            // {
-            //   name: "Blog",
-            //   list: MuiInferencer,
-            //   options: { label: 'React JS'},
-            //   icon: <EditNoteIcon />
-            // },
-            // {
-            //   name: "crud",
-            //   list: MuiInferencer,
-            //   options: { label: 'CRUD'},
-            //   icon: <UpdateIcon />
-            // },
-            // {
-            //   name: "css",
-            //   list: MuiInferencer,
-            //   options: { label: 'CSS'},
-            //   icon: <CssOutlinedIcon />
-            // },
+            {
+              name: "powder",
+              list: Powder,
+              show: PostDetails,
+              options: { label: "Powders" },
+              icon: <ExtensionIcon />,
+            },
+            {
+              name: "amino",
+              list: Amino,
+              options: { label: "Amino Acids" },
+              icon: <FitnessCenterIcon />,
+            },
+            {
+              name: "vitamin",
+              list: Vitamin,
+              options: { label: "Vitamins" },
+              icon: <MedicationIcon />,
+            },
+            {
+              name: "gainer",
+              list: Gainer,
+              options: { label: "Gainers" },
+              icon: <UpgradeIcon />,
+            },
           ]}
           Title={Title}
           Sider={Sider}
           Layout={Layout}
           Header={Header}
-          Footer={Footer}
+          // Footer={Footer}
           routerProvider={routerProvider}
           authProvider={authProvider}
           LoginPage={Login}

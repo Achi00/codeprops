@@ -14,10 +14,10 @@ cloudinary.config({
 })
 
 const getAllPosts = async (req, res) => {
-    const { _end, _start, title_like = "", postType = "" } = req.query
+    const { _end, _start,_order, _sort, title_like = "", productType = "" } = req.query
     const query = {}
-    if (postType !== "") {
-        query.postType = postType
+    if (productType !== "") {
+        query.productType = productType
     }
     if (title_like) {
         query.title = { $regex: title_like, $options: 'i'}
@@ -28,6 +28,7 @@ const getAllPosts = async (req, res) => {
         .find(query)
         .limit(_end)
         .skip(_start)
+        .sort({ [_sort]: _order });
         res.header('x-total-count', count)
         res.header('Access-Control-Expose-Headers', 'x-total-count')
 
@@ -51,21 +52,17 @@ const getPostDetail = async (req, res) => {
 const createPost = async (req, res) => {
     try {
     const { 
-        title, 
-        description, 
-        postType, 
-        header, 
-        header2, 
-        header3, 
-        imgurl,
-        tech, 
-        photo,
-        photo2,
-        photo3, 
-        photo4, 
-        github, 
-        preview, 
-        email 
+      title,
+      description,
+      stock,
+      flavor,
+      serving,
+      weight,
+      productType,
+      price,
+      photo,
+      photo2,
+      email 
     } = req.body
 
     // start new session
@@ -79,24 +76,21 @@ const createPost = async (req, res) => {
 
     const photoUrl = await cloudinary.uploader.upload(photo)
     const photoUrl2 = await cloudinary.uploader.upload(photo2)
-    const photoUrl3 = await cloudinary.uploader.upload(photo3)
-    const photoUrl4 = await cloudinary.uploader.upload(photo4)
+    // const photoUrl3 = await cloudinary.uploader.upload(photo3)
+    // const photoUrl4 = await cloudinary.uploader.upload(photo4)
 
     const newPost = await Post.create({
         title,
         description,
-        header, 
-        header2,
-        header3,
-        imgurl,
-        postType,
-        tech,
-        github,
-        preview,
+        stock,
+        flavor,
+        serving,
+        weight,
+        productType,
+        price,
         photo: photoUrl.url,
         photo2: photoUrl2.url,
-        photo3: photoUrl3.url,
-        photo4: photoUrl4.url,
+
         creator: user._id
     })
     user.allPosts.push(newPost._id)
@@ -113,22 +107,19 @@ const createPost = async (req, res) => {
 const updatePost = async (req, res) => {
     try {
       const { id } = req.params;
-      const {
+      const { 
         title,
         description,
-        postType,
-        header,
-        header2,
-        header3,
-        imgurl,
-        tech,
+        stock,
+        flavor,
+        productType,
+        serving,
+        weight,
+        price,
         photo,
         photo2,
-        photo3,
-        photo4,
-        github,
-        preview
-      } = req.body;
+        email 
+      } = req.body
   
       const post = await Post.findById(id);
   
@@ -138,24 +129,18 @@ const updatePost = async (req, res) => {
   
       const photoUrl = photo ? await cloudinary.uploader.upload(photo) : null;
       const photoUrl2 = photo2 ? await cloudinary.uploader.upload(photo2) : null;
-      const photoUrl3 = photo3 ? await cloudinary.uploader.upload(photo3) : null;
-      const photoUrl4 = photo4 ? await cloudinary.uploader.upload(photo4) : null;
   
       await post.updateOne({
         title,
         description,
-        postType,
-        header,
-        header2,
-        header3,
-        imgurl,
-        tech,
+        stock,
+        flavor,
+        serving,
+        weight,
+        productType,
+        price,
         photo: photoUrl?.url || post.photo,
         photo2: photoUrl2?.url || post.photo2,
-        photo3: photoUrl3?.url || post.photo3,
-        photo4: photoUrl4?.url || post.photo4,
-        github,
-        preview
       });
   
       res.status(200).json({ message: "Post updated successfully" });

@@ -4,6 +4,10 @@ import AllPosts from "./AllPosts";
 import PostDetails from "./PostDetails";
 import EditPost from "./EditPost";
 import CreatePost from "./CreatePost";
+import Amino from "./Amino";
+import Vitamin from "./Vitamin";
+import Powder from "./Powder";
+import Gainer from "./Gainer";
 
 
 export {
@@ -12,5 +16,9 @@ export {
     AllPosts,
     PostDetails,
     EditPost,
-    CreatePost
+    CreatePost,
+    Amino,
+    Powder,
+    Gainer,
+    Vitamin
 }

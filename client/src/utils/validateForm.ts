@@ -21,15 +21,15 @@ export const validateForm = (formValues: FormValues) => {
         }
         break;
 
-      case 'postType':
-        if (!formValues.propertyType) {
-          errors.message = 'postType type is required';
+      case 'productType':
+        if (!formValues.productType) {
+          errors.message = 'productType type is required';
           hasError = true;
         }
         break;
 
       case 'header':
-        if (!formValues.location) {
+        if (!formValues.inStock) {
           errors.message = 'Location is required';
           hasError = true;
         }

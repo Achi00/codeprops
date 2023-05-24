@@ -37,11 +37,7 @@ export interface FormProps {
     handleSubmit: FormEventHandler<HTMLFormElement> | undefined,
     handleImageChange: (file) => void,
     handleImageChange2: (file) => void,
-    handleImageChange3: (file) => void,
-    handleImageChange4: (file) => void,
     onFinishHandler: (data: FieldValues) => Promise<void> | void,
     postImage: { name: string, url: string },
     postImage2: { name: string, url: string },
-    postImage3: { name: string, url: string },
-    postImage4: { name: string, url: string },
 }

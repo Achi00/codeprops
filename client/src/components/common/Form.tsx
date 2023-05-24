@@ -20,15 +20,12 @@ const Form = ({
   handleSubmit,
   handleImageChange,
   handleImageChange2,
-  handleImageChange3,
-  handleImageChange4,
   formLoading,
   onFinishHandler,
   postImage,
   postImage2,
-  postImage3,
-  postImage4,
 }: FormProps) => {
+  // add flavour
   return (
     <Box component="div">
       <Stack sx={{ padding: "24px" }}>
@@ -58,11 +55,11 @@ const Form = ({
                 sx={{
                   fontWeight: 500,
                   margin: "10px 0",
-                  fontSize: 16,
+                  fontSize: 20,
                   color: "#11142d",
                 }}
               >
-                Enter Post Name
+                Enter Product Name
               </FormHelperText>
               <TextField
                 fullWidth
@@ -78,7 +75,7 @@ const Form = ({
                 sx={{
                   fontWeight: 500,
                   margin: "10px 0",
-                  fontSize: 16,
+                  fontSize: 20,
                   color: "#11142d",
                 }}
               >
@@ -92,7 +89,7 @@ const Form = ({
                 style={{
                   width: "100%",
                   background: "transparent",
-                  fontSize: "16px",
+                  fontSize: "20px",
                   borderColor: "rgba(0, 0, 0, 0.23)",
                   borderRadius: 6,
                   padding: 10,
@@ -106,27 +103,27 @@ const Form = ({
                 sx={{
                   fontWeight: 500,
                   margin: "10px 0",
-                  fontSize: 16,
+                  fontSize: 20,
                   color: "#11142d",
                 }}
               >
-                Enter Website Link
+                Enter Weight
               </FormHelperText>
               <TextareaAutosize
                 minRows={5}
                 required
-                placeholder="Enter Description"
+                placeholder="Enter Weight"
                 color="info"
                 style={{
                   width: "100%",
                   background: "transparent",
-                  fontSize: "16px",
+                  fontSize: "20px",
                   borderColor: "rgba(0, 0, 0, 0.23)",
                   borderRadius: 6,
                   padding: 10,
                   color: "#919191",
                 }}
-                {...register("preview", { required: true })}
+                {...register("weight", { required: true })}
               />
             </FormControl>
             <FormControl>
@@ -134,139 +131,110 @@ const Form = ({
                 sx={{
                   fontWeight: 500,
                   margin: "10px 0",
-                  fontSize: 16,
+                  fontSize: 20,
                   color: "#11142d",
                 }}
               >
-                Enter Github Link
+                Enter Servings
               </FormHelperText>
               <TextareaAutosize
                 minRows={5}
                 required
-                placeholder="Enter Description"
+                placeholder="Enter Servings"
                 color="info"
                 style={{
                   width: "100%",
                   background: "transparent",
-                  fontSize: "16px",
+                  fontSize: "20px",
                   borderColor: "rgba(0, 0, 0, 0.23)",
                   borderRadius: 6,
                   padding: 10,
                   color: "#919191",
                 }}
-                {...register("github", { required: true })}
+                {...register("serving", { required: true })}
               />
+            </FormControl>
+
+            <FormControl>
+              <FormHelperText
+                sx={{
+                  fontWeight: 500,
+                  margin: "10px 0",
+                  fontSize: 20,
+                  color: "#11142d",
+                }}
+              >
+                Enter how many is in stock
+              </FormHelperText>
+              <TextField
+                minRows={2}
+                required
+                placeholder="Stock..."
+                color="info"
+                style={{
+                  width: "100%",
+                  background: "transparent",
+                  fontSize: "20px",
+                  borderColor: "rgba(0, 0, 0, 0.23)",
+                  borderRadius: 6,
+                  padding: 10,
+                  color: "#919191",
+                }}
+                {...register("stock", { required: true })}
+              />
+            </FormControl>
+            <FormControl sx={{ flex: 1 }}>
+              <FormHelperText
+                sx={{
+                  fontWeight: 500,
+                  margin: "10px 0",
+                  fontSize: 20,
+                  color: "#11142d",
+                }}
+              >
+                Select Product Type
+              </FormHelperText>
+              <Select
+                variant="outlined"
+                color="info"
+                displayEmpty
+                required
+                inputProps={{ "aria-label": "Without label" }}
+                defaultValue="template"
+                {...register("productType", { required: true })}
+              >
+                <MenuItem value="powder">powder</MenuItem>
+                <MenuItem value="amino">amino</MenuItem>
+                <MenuItem value="vitamin">vitamin</MenuItem>
+                <MenuItem value="gainer">gainer</MenuItem>
+              </Select>
             </FormControl>
             <FormControl>
               <FormHelperText
                 sx={{
                   fontWeight: 500,
                   margin: "10px 0",
-                  fontSize: 16,
+                  fontSize: 20,
                   color: "#11142d",
                 }}
               >
-                Enter Head Text
+                Enter flavors
               </FormHelperText>
               <TextareaAutosize
                 minRows={5}
                 required
-                placeholder="Enter Header Text"
+                placeholder="Enter flavors like cocoa, apple, orange seterate with , to create array"
                 color="info"
                 style={{
                   width: "100%",
                   background: "transparent",
-                  fontSize: "16px",
+                  fontSize: "20px",
                   borderColor: "rgba(0, 0, 0, 0.23)",
                   borderRadius: 6,
                   padding: 10,
                   color: "#919191",
                 }}
-                {...register("header", { required: true })}
-              />
-            </FormControl>
-            <FormControl>
-              <FormHelperText
-                sx={{
-                  fontWeight: 500,
-                  margin: "10px 0",
-                  fontSize: 16,
-                  color: "#11142d",
-                }}
-              >
-                Enter Head Text #2
-              </FormHelperText>
-              <TextareaAutosize
-                minRows={5}
-                required
-                placeholder="Enter Header Text"
-                color="info"
-                style={{
-                  width: "100%",
-                  background: "transparent",
-                  fontSize: "16px",
-                  borderColor: "rgba(0, 0, 0, 0.23)",
-                  borderRadius: 6,
-                  padding: 10,
-                  color: "#919191",
-                }}
-                {...register("header2", { required: true })}
-              />
-            </FormControl>
-            <FormControl>
-              <FormHelperText
-                sx={{
-                  fontWeight: 500,
-                  margin: "10px 0",
-                  fontSize: 16,
-                  color: "#11142d",
-                }}
-              >
-                Enter Head Text #3
-              </FormHelperText>
-              <TextareaAutosize
-                minRows={5}
-                required
-                placeholder="Enter Header Text"
-                color="info"
-                style={{
-                  width: "100%",
-                  background: "transparent",
-                  fontSize: "16px",
-                  borderColor: "rgba(0, 0, 0, 0.23)",
-                  borderRadius: 6,
-                  padding: 10,
-                  color: "#919191",
-                }}
-                {...register("header3", { required: true })}
-              />
-            </FormControl>
-            <FormControl>
-              <FormHelperText
-                sx={{
-                  fontWeight: 500,
-                  margin: "10px 0",
-                  fontSize: 16,
-                  color: "#11142d",
-                }}
-              >
-                Enter image links for image slider
-              </FormHelperText>
-              <TextareaAutosize
-                minRows={5}
-                required
-                placeholder="Enter img url..."
-                color="info"
-                style={{
-                  width: "100%",
-                  background: "transparent",
-                  fontSize: "16px",
-                  borderColor: "rgba(0, 0, 0, 0.23)",
-                  borderRadius: 6,
-                  padding: 10,
-                  color: "#919191",
-                }}
-                {...register("imgurl", { required: true })}
+                {...register("flavors", { required: true })}
               />
             </FormControl>
             <Stack direction="row" gap={4}>
@@ -275,58 +243,32 @@ const Form = ({
                   sx={{
                     fontWeight: 500,
                     margin: "10px 0",
-                    fontSize: 16,
+                    fontSize: 20,
                     color: "#11142d",
                   }}
                 >
-                  Enter Used Technologies
+                  Enter Price
                 </FormHelperText>
-                <TextareaAutosize
+                <TextField
                   minRows={5}
                   required
-                  placeholder="Enter Used Technologies"
+                  placeholder="Enter price  without $"
                   color="info"
                   style={{
-                    width: "100%",
                     background: "transparent",
-                    fontSize: "16px",
+                    fontSize: "20px",
                     borderColor: "rgba(0, 0, 0, 0.23)",
                     borderRadius: 6,
                     padding: 10,
                     color: "#919191",
                   }}
-                  {...register("tech", { required: true })}
+                  {...register("price", { required: true })}
                 />
-              </FormControl>
-              <FormControl sx={{ flex: 1 }}>
-                <FormHelperText
-                  sx={{
-                    fontWeight: 500,
-                    margin: "10px 0",
-                    fontSize: 16,
-                    color: "#11142d",
-                  }}
-                >
-                  Select Post Type
-                </FormHelperText>
-                <Select
-                  variant="outlined"
-                  color="info"
-                  displayEmpty
-                  required
-                  inputProps={{ "aria-label": "Without label" }}
-                  defaultValue="template"
-                  {...register("postType", { required: true })}
-                >
-                  <MenuItem value="template">Template</MenuItem>
-                  <MenuItem value="tutorial">Tutorial</MenuItem>
-                  <MenuItem value="blog">Blog</MenuItem>
-                </Select>
               </FormControl>
             </Stack>
             <Stack direction="column" gap={1} justifyContent="center" mb={2}>
               <Stack direction="row" gap={2}>
-                <Typography color="#11142d" fontSize={16} fontWeight={500}>
+                <Typography color="#11142d" fontSize={20} fontWeight={500}>
                   Post Photo
                 </Typography>
                 <Button
@@ -335,7 +277,7 @@ const Form = ({
                     width: "fit-content",
                     color: "#2ed480",
                     textTransform: "capitalize",
-                    fontSize: 16,
+                    fontSize: 20,
                   }}
                 >
                   Upload
@@ -356,7 +298,7 @@ const Form = ({
                     width: "fit-content",
                     color: "#2ed480",
                     textTransform: "capitalize",
-                    fontSize: 16,
+                    fontSize: 20,
                   }}
                 >
                   Upload2
@@ -371,13 +313,13 @@ const Form = ({
                     }}
                   />
                 </Button>
-                <Button
+                {/* <Button
                   component="label"
                   sx={{
                     width: "fit-content",
                     color: "#2ed480",
                     textTransform: "capitalize",
-                    fontSize: 16,
+                    fontSize: 20,
                   }}
                 >
                   Upload3
@@ -398,7 +340,7 @@ const Form = ({
                     width: "fit-content",
                     color: "#2ed480",
                     textTransform: "capitalize",
-                    fontSize: 16,
+                    fontSize: 20,
                   }}
                 >
                   Upload4
@@ -412,7 +354,7 @@ const Form = ({
                       handleImageChange4(e.target.files[0]);
                     }}
                   />
-                </Button>
+                </Button> */}
               </Stack>
               <Typography
                 fontSize={14}
@@ -428,7 +370,7 @@ const Form = ({
               >
                 {postImage2?.name}
               </Typography>
-              <Typography
+              {/* <Typography
                 fontSize={14}
                 color="#808191"
                 sx={{ wordBreak: "break-all" }}
@@ -441,7 +383,7 @@ const Form = ({
                 sx={{ wordBreak: "break-all" }}
               >
                 {postImage4?.name}
-              </Typography>
+              </Typography> */}
             </Stack>
             <CustomButton
               type="submit"

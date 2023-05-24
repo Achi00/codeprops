@@ -21,6 +21,10 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/posts', postRouter)
+app.use('/api/v1/powder', postRouter)
+app.use('/api/v1/amino', postRouter)
+app.use('/api/v1/vitamin', postRouter)
+app.use('/api/v1/gainer', postRouter)
 
 const startServer = async () => {
     try {

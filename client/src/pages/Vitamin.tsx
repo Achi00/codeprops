@@ -1,3 +1,4 @@
+import { useState, useEffect, ChangeEvent } from "react";
 import { Add } from "@mui/icons-material";
 import { useTable } from "@pankod/refine-core";
 import {
@@ -15,8 +16,19 @@ import { PostCard, CustomButton } from "components";
 import { Loading } from "components";
 import { revealVariants } from "assets/motion";
 import { motion } from "framer-motion";
+import { SelectChangeEvent } from "@mui/material";
 
-const AllPosts = () => {
+interface CurrentFilterValues {
+  productType: string;
+}
+
+interface Filter {
+  field: string;
+  operator: string;
+  value: string;
+}
+
+const Vitamin = () => {
   const navigate = useNavigate();
   const {
     tableQueryResult: { data, isError, isLoading },
@@ -24,8 +36,6 @@ const AllPosts = () => {
     setCurrent,
     setPageSize,
     pageCount,
-    sorter,
-    setSorter,
     filters,
     setFilters,
   } = useTable();
@@ -34,11 +44,15 @@ const AllPosts = () => {
 
   const allPosts = data?.data ?? [];
 
-  const currentPrice = sorter.find((item) => item.field === "price")?.order;
-
-  const toggleSort = (field: string) => {
-    setSorter([{ field, order: currentPrice === "asc" ? "desc" : "asc" }]);
-  };
+  useEffect(() => {
+    setFilters([
+      {
+        field: "productType",
+        operator: "eq",
+        value: "vitamin",
+      },
+    ]);
+  }, []); // Empty dependency array to run only on mount
 
   const currentFilterValues = useMemo(() => {
     const logicalFilters = filters.flatMap((item) =>
@@ -51,6 +65,16 @@ const AllPosts = () => {
         "",
     };
   }, [filters]);
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setFilters([
+      {
+        field: "productType",
+        operator: "eq",
+        value: event.target.value,
+      },
+    ]);
+  };
 
   if (isLoading) return <Loading />;
   if (isError)
@@ -89,66 +113,47 @@ const AllPosts = () => {
             <Box
               component="div"
               display="flex"
-              flexDirection="column"
-              alignItems="center"
-              justifyContent="center"
               gap={2}
               flexWrap="wrap"
               mb={{ xs: "20px", sm: 0 }}
             >
-              <Stack direction="row">
-                <TextField
-                  sx={{ paddingLeft: "40px" }}
-                  variant="outlined"
-                  color="info"
-                  placeholder="Search By Title"
-                  value={currentFilterValues.title}
-                  onChange={(e) => {
-                    setFilters([
-                      {
-                        field: "title",
-                        operator: "contains",
-                        value: e.currentTarget.value
-                          ? e.currentTarget.value
-                          : undefined,
-                      },
-                    ]);
-                  }}
-                />
-                <Select
-                  variant="outlined"
-                  color="info"
-                  displayEmpty
-                  required
-                  inputProps={{ "arie-label": "Without label" }}
-                  defaultValue=""
-                  value={currentFilterValues.productType}
-                  onChange={(e) => {
-                    setFilters([
-                      {
-                        field: "productType",
-                        operator: "eq",
-                        value: e.target.value,
-                      },
-                    ]);
-                  }}
-                >
-                  <MenuItem value="">All</MenuItem>
-                  {["powder", "amino", "vitamin", "gainer"].map((type) => (
-                    <MenuItem key={type} value={type.toLowerCase()}>
-                      {type}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </Stack>
-              <CustomButton
-                title={`Sort price ${currentPrice === "asc" ? "↑" : "↓"}`}
-                handleClick={() => toggleSort("price")}
-                backgroundColor="#023e8a"
-                color="#fcfcfc"
-                height="50px"
-                width="200px"
+              <TextField
+                inputProps={{
+                  readOnly: true,
+                }}
+                sx={{ paddingLeft: "40px", cursor: "default" }}
+                variant="outlined"
+                color="info"
+                placeholder="Search By Title"
+                value="vitamin"
+                onChange={(e) => {
+                  setFilters([
+                    {
+                      field: "productType",
+                      operator: "contains",
+                      value: e.currentTarget.value
+                        ? e.currentTarget.value
+                        : undefined,
+                    },
+                  ]);
+                }}
               />
+              <Select
+                variant="outlined"
+                color="info"
+                displayEmpty
+                required
+                inputProps={{ "aria-label": "Without label" }}
+                defaultValue="vitamin"
+                value={currentFilterValues.productType}
+                onChange={handleChange}
+              >
+                {["vitamin"].map((type) => (
+                  <MenuItem key={type} value={type.toLowerCase()}>
+                    {type}
+                  </MenuItem>
+                ))}
+              </Select>
             </Box>
           </Box>
         </Stack>
@@ -258,4 +263,4 @@ const AllPosts = () => {
   );
 };
 
-export default AllPosts;
+export default Vitamin;

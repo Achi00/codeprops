@@ -12,20 +12,10 @@ import { PostCardProps } from "interfaces/property";
 import { useGetIdentity } from "@pankod/refine-core";
 import { useState } from "react";
 import { GoogleButton } from "pages/login";
+import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 
-const PostCard = ({
-  id,
-  title,
-  tech,
-  description,
-  photo,
-  photo2,
-  photo3,
-  photo4,
-  postType,
-}: PostCardProps) => {
+const PostCard = ({ id, title, photo, price, productType }: PostCardProps) => {
   const [hover, setHover] = useState(false);
-  const { data: user } = useGetIdentity();
   return (
     <Card
       onMouseOver={() => setHover(true)}
@@ -34,9 +24,9 @@ const PostCard = ({
       to={`/posts/show/${id}`}
       sx={{
         maxWidth: { lg: "400px", md: "350px", xs: "280px" },
-        height: "350px",
+        height: "550px",
         borderRadius: "25px",
-        backgroundColor: "#131B24",
+        backgroundColor: "#E1E4E8",
         padding: "2vmin",
         marginTop: "30px",
         marginBottom: "30px",
@@ -45,19 +35,22 @@ const PostCard = ({
       }}
       elevation={0}
     >
+      <Box component="div" display="flex" justifyContent="flex-end" mb="1vmin">
+        <ArrowOutwardIcon />
+      </Box>
       <CardMedia
         component="img"
         width="250px"
-        height="170px"
+        height="330px"
         image={photo}
         alt="card Image"
         sx={{
           borderRadius: "25px",
           cursor: "pointer",
+          transition: "0.4s ease-in-out",
           "&:hover": {
             opacity: 1,
-            backgroundColor: "black",
-            filter: "brightness(50%)",
+            backgroundColor: "#dee2e6",
             transition: "all 0.2s ease",
             objectFit: "cover",
           },
@@ -73,49 +66,26 @@ const PostCard = ({
             transform: "translate(-50%, 50%)",
           }}
         >
-          {user ? (
-            <Button
-              sx={{
-                zIndex: "10",
-                position: "absolute",
-                bottom: "30%",
-                left: "50%",
-                transform: "translate(-50%, 50%)",
-                backgroundColor: "#0D1318",
-                color: "white",
-                fontSize: "18px",
-                fontWeight: "900",
-                padding: "0.5rem",
-                pointerEvents: "none",
-                "&:hover": {
-                  backgroundColor: "rgba(71, 91, 232, 0.7)",
-                },
-              }}
-            >
-              Explore More
-            </Button>
-          ) : (
-            <Button
-              sx={{
-                zIndex: "10",
-                position: "absolute",
-                bottom: "30%",
-                left: "50%",
-                transform: "translate(-50%, 50%)",
-                backgroundColor: "#0D1318",
-                color: "white",
-                fontSize: "18px",
-                fontWeight: "900",
-                padding: "0.5rem",
-                pointerEvents: "none",
-                "&:hover": {
-                  backgroundColor: "rgba(71, 91, 232, 0.7)",
-                },
-              }}
-            >
-              Explore More
-            </Button>
-          )}
+          <Button
+            sx={{
+              zIndex: "10",
+              position: "absolute",
+              bottom: "50%",
+              left: "50%",
+              transform: "translate(-50%, 0%)",
+              backgroundColor: "#0D1318",
+              color: "white",
+              fontSize: "18px",
+              fontWeight: "900",
+              padding: "0.5rem",
+              pointerEvents: "none",
+              "&:hover": {
+                backgroundColor: "rgba(3, 4, 94, 0.7)",
+              },
+            }}
+          >
+            Explore More
+          </Button>
         </Box>
       ) : null}
       <Box component="div" sx={{ position: "relative" }}>
@@ -131,14 +101,14 @@ const PostCard = ({
           }}
         >
           <Stack direction="column">
-            <Typography fontSize={22} fontWeight={700} color="#B7BEC5">
+            <Typography fontSize={22} fontWeight={700} color="#000">
               {title}
             </Typography>
-            <Typography fontSize={20} fontWeight={500} color="#999999">
-              {postType}
+            <Typography fontSize={20} fontWeight={500} color="#000">
+              {productType}
             </Typography>
-            <Typography fontSize={18} fontWeight={500} color="#999999">
-              {tech}
+            <Typography fontSize={18} fontWeight={500} color="#000">
+              {price} ₾
             </Typography>
           </Stack>
         </CardContent>
